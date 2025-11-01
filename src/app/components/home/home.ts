@@ -13,5 +13,10 @@ export class Home {
   Login() {
     this.router.navigate(['/login']);
   }
-
+  Invitado() {
+    this.router.navigate(['/restaurants']);
+  }
+  Register() {
+    this.router.navigate(['/register']);
+  }
 }
