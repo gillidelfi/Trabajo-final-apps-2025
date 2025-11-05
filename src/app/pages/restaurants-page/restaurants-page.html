@@ -1,1 +1,4 @@
-<p>restaurants-page works!</p>
+<ul>
+    @for (user of restaurantService.users; track $index){
+    <app-restaurants-list-items [user]="user"> </app-restaurants-list-items>     
+}

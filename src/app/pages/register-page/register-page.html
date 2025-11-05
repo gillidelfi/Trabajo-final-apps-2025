@@ -1,1 +1,71 @@
-<p>register-page works!</p>
+<div class="container-register">
+    <div id="container" class="card">
+      <h1>Registrarse</h1>
+      <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+        
+        <div class="subtitulo">
+          <label for="restaurantName">Nombre del restaurante</label>
+          <input id="restaurantName" name="restaurantName" type="restaurantName" id="restaurantName" ngModel #restaurantName="ngModel" required="true" autocomplete="restaurantName">
+          @if (restaurantName.invalid && !restaurantName.pristine) {
+            <p class="error">Debe colocar el nombre de su restaurante.</p>
+          }
+        </div>
+        <div class="subtitulo">
+            <label for="password">Contraseña</label>
+            <input id="password" name="password" type="password" ngModel #password="ngModel" minlength="4" autocomplete="new-password">
+            @if (password.invalid && !password.pristine) {
+              <p class="error">Debe colocar una contraseña de al menos 4 caracteres.</p>
+            }
+          </div>
+          <div class="subtitulo">
+            <label for="password">Repite la contraseña</label>
+            <input id="password2" name="password2" type="password" ngModel #password2="ngModel" minlength="4" autocomplete="new-password">
+            @if (password.invalid && !password.pristine) {
+              <p class="error">Debe colocar una contraseña de al menos 4 caracteres.</p>
+            }
+          </div>
+  
+        <div class="subtitulo">
+          <label for="firstName">Nombre</label>
+          <input id="firstName" name="firstName" type="text" id="firstName" ngModel #firstName="ngModel" required="true" autocomplete="firstName">
+          @if (firstName.invalid && !firstName.pristine) {
+            <p class="error">Este campo es obligatorio</p>
+          }
+        </div>
+        <div class="subtitulo">
+          <label for="lastName">Apellido</label>
+          <input id="lastName" name="lastName" type="lastName" id="lastName" ngModel #lastName="ngModel" required="true" autocomplete="lastName">
+          @if (lastName.invalid && !lastName.pristine) {
+            <p class="error">Este campo es obligatorio</p>
+          }
+        </div>
+        <div class="subtitulo">
+            <label for="address">Domicilio</label>
+            <input id="address" name="address" type="address" ngModel #address="ngModel" minlength="4" autocomplete="address">
+            @if (address.invalid && !address.pristine) {
+              <p class="error">Debe colocar un domicilio de al menos 4 caracteres.</p>
+            }
+          </div>
+          <div class="subtitulo">
+            <label for="phoneNumber">Número de telefono</label>
+            <input id="phoneNumber" name="phoneNumber" type="phoneNumber" ngModel #phoneNumber="ngModel" minlength="5" autocomplete="phoneNumber">
+            @if (phoneNumber.invalid && !phoneNumber.pristine) {
+              <p class="error">Debe colocar un numero de teléfono de al menos 5 caracteres.</p>
+            }
+          </div>
+       
+  
+        <button [disabled]="isLoading || registerForm.invalid">Iniciar sesión</button>
+        @if(isLoading) {
+        <app-spinner></app-spinner>
+      }
+        @if (errorRegister) {
+          <p class="error">Error indeterminado, intente nuevamente.</p>
+        } 
+        <p>Ya tenés cuenta? <a routerLink="/login">Inicia sesion</a>
+        </p>
+      </form>
+    
+    </div>
+  
+  </div>
