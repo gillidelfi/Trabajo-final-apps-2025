@@ -1,1 +1,67 @@
-<p>restaurants-product works!</p>
+<div>
+    @if(idProduct()){
+      <h2>Editar producto</h2>
+    } @else {
+      <h2>Nuevo producto</h2>
+    }
+    <form (ngSubmit)="handleFormSubmission(newProductForm)" #newProductForm="ngForm" >
+        <div>
+          <label for="name">Nombre</label>  
+          <input id = "name" name ="name" type="text" required="true" #name="ngModel" minlength="2" maxlength="30" ngModel >
+          @if (name.dirty && name.invalid ) {
+               <p class="error">El nombre es obligatorio</p>}
+        </div>
+        <div>
+            <label for="description"></label>  
+            <input id= "description" name= "description" type="text" ngModel >
+          </div>
+          <div>
+            <label for="price">$$</label>  
+            <input id="price" name= "price"  type="text" required="true" minlength="3" maxlength="50" ngModel >
+          </div>
+          <div>
+            <label for="categoryId"></label>  
+            <input id="categoryId" name="categoryId" type="number" maxlength="40" ngModel >
+          </div>   
+          <div>
+            <label for="featured"></label>  
+            <input id="featured" name="featured" type="text" ngModel >
+          </div>  
+          <div>
+            <label for="labels"></label>  
+            <input id="labels" name="labels" type="text" minlength="5" ngModel >
+          </div>    
+          <div>
+            <label for="recommendedFor">Recomendado para</label>  
+            <input id="recommendedFor" name="recommendedFor" type="text" minlength="1" ngModel >
+          </div>       
+          <div>
+            <label for="discount">descuento</label>  
+            <input id="discount" name="discount" type="text"  ngModel >
+          </div>
+          <div>
+            <label for="hasHappyHour">happyhour</label>  
+            <input id="hasHappyHour" name="hasHappyHour" type="text"  ngModel >
+          </div>
+            <div>
+                <label for="isDestacado">destacado</label>  
+                <input id="isDestacado" name="isDestacado" type="text"  ngModel >
+            </div>
+
+  
+          @if (errorEnBack){
+            <p class="error">Error indeterminado, inetente nuevamente</p>
+          }    
+  
+          @if(idProduct()){ /** Revisar deshabilitacion de botones*/
+
+            <button [disabled]="newProductForm.invalid || isLoading">Editar</button> 
+          } @else {
+            <button [disabled]="newProductForm.invalid || isLoading">Crear</button>
+          }
+          @if(isLoading){
+            <app-spinner class="loader"></app-spinner>
+          }
+        
+    </form>
+  </div>

@@ -29,6 +29,19 @@ export class RestaurantService {
     return resProduct;
 
 }
+async getProductById(id: string | number) {
+  const res = await fetch('https://w370351.ferozo.com/api/products'+ id,  /**cambiar poniendo id de un producti creado */
+    {
+      headers:{
+        Authorization: "Bearer "+this.authService.token,
+      },
+    });
+  
+  if (!res.ok) return;
+  const resProduct: Product = await res.json();
+  return resProduct;
+
+}
 async editProduct(productoEditado: Product) { 
   const res = await fetch ("https://w370351.ferozo.com/api/products"+ productoEditado.id, /**cambiar poniendo id de un producti creado */
   {
