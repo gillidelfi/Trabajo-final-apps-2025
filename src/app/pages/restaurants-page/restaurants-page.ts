@@ -1,7 +1,7 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { RouterModule } from '@angular/router';
-import { RestaurantService } from '../../services/restaurant-service';
+import { UsersService } from '../../services/user-service';
 import { FormsModule } from '@angular/forms';
 import { RestaurantsListItems } from "../../components/restaurants-list-items/restaurants-list-items";
 import { User } from '../../Interfaces/User';
@@ -15,10 +15,10 @@ import { User } from '../../Interfaces/User';
 export class RestaurantsPage implements OnInit{
  
     ngOnInit(): void {
-      this.restaurantService.getusers();
+      this.userService.getusers();
     }
     authservice = inject(AuthService);
-    restaurantService = inject(RestaurantService);
+    userService = inject(UsersService);
     user = input.required<User>();
   
   }
