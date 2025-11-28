@@ -4,6 +4,7 @@ import { onlyPublicUserGuard } from './guards/only-public-user-guard';
 import { RegisterPage } from './pages/register-page/register-page';
 import { Home } from './components/home/home';
 import { RestaurantsPage } from './pages/restaurants-page/restaurants-page';
+import { RestaurantsMenu } from './components/restaurants-menu/restaurants-menu';
 export const routes: Routes = [
     {
         path:"login",
@@ -17,13 +18,18 @@ export const routes: Routes = [
 
    },
    {
-    path:"home",
+    path:"",
     component:Home,
     canActivate: [onlyPublicUserGuard]
    },
    {
-    path:"",
+    path:"restaurantPage",
     component:RestaurantsPage,
+    canActivate: [onlyPublicUserGuard]
+   },
+   {
+    path:"restaurant/:id",
+    component:RestaurantsMenu,
     canActivate: [onlyPublicUserGuard]
    },
 ]

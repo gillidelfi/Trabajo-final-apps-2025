@@ -1,0 +1,59 @@
+<div>
+
+    @if(idCategory()){
+      <h2>Editar categoría</h2>
+    } @else {
+      <h2>Nueva categoría</h2>
+    }
+  
+    <form (ngSubmit)="handleFormSubmission(categoriesForm)" #categoriesForm="ngForm">
+  
+      <div>
+        <label for="name"></label>
+        <input
+          id="name" name="name" type="text" required="true" minlength="2" maxlength="30" #name="ngModel" ngModel >
+          @if (name.dirty && name.invalid ) {
+          <p class="error">El nombre es obligatorio</p>
+        }
+      </div>
+  
+      @if(idCategory()){
+        <div>
+          <label for="id">ID</label>
+          <input
+            id="id"name="id" type="number" [disabled]="true" ngModel >
+        </div>
+      }
+        @if(errorEnBack){
+        <p class="error">Error indeterminado, intente nuevamente</p>
+      }
+  
+      @if(idCategory()){
+        <button [disabled]="categoriesForm.invalid || isLoading">Guardar cambios</button>
+      } @else {
+        <button [disabled]="categoriesForm.invalid || isLoading">Crear</button>
+      }
+  
+      @if(isLoading){
+        <app-spinner class="loader"></app-spinner>
+      }
+  
+    </form>
+    
+    <h3>Listado de categorías</h3>
+  
+    @if(isLoading){
+      <app-spinner></app-spinner>
+    } @else {
+        
+       <ul>
+  @for (categorie of categories; track categorie.id) {
+    <li>{{ categorie.name }} — {{ categorie.id }}</li>
+  }
+</ul>
+
+          
+    }
+  
+  </div>
+  
