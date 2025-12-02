@@ -1,2 +1,79 @@
+<header>
+    <nav>
+        <div>
+            <a>BIENVENIDO</a>
+            <button type="button"></button>
+            <div>
+                <ul>
+                    <li>
+                        <a>Home</a>
+                    </li>
+                    <li>
+                        <a>Favoritos⭐</a>
+                    </li>
+                </ul>
+                <form>
+                    <input>
+                    <button>Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
 
+<main>
+    <div>
+        @if(cargandoInfo){
+        <p>Cargando Información...</p>
+        } @else if(!user) {
+        <p>No se encontró el restaurante buscado</p>
+        } @else {
+        <h1>{{user.restaurantName}} </h1>
+
+        <div>
+            <p>Teléfono:{{user.phoneNumber}}</p>
+            <p>Dirección:{{user.address}}</p>
+        </div>
+        }
+
+        <p > Menú</p>
+        @for (producto of getFilteredProducts(); track producto.id) {
+        <div>
+            @if(producto. featured){
+            <span class="featured">⭐ Descatado</span>
+            }
+            <strong>{{producto.name}}</strong>
+            @if (producto.discount) {
+            <span class="discount">{{producto.discount}} % off 🔥 </span>
+            }
+            @if (producto.hasHappyHour) {
+            <span class="happy-hour">Happy Hour 🍻</span>
+            }
+
+            <h4>{{ producto.name }}</h4>
+            <p class="description">{{ producto.description }}</p>
+            @if (producto.recommendedFor) {
+            <span>🔔{{ producto.recommendedFor }}</span>
+            }
+
+            <div class="price-info">
+                @if (producto.discount >0) {
+                <span> ${{calculateFinalPrice(producto)}}</span>
+                }
+                @else {
+                    <span>${{producto.price}}</span>
+                }
+
+                @if (producto.hasHappyHour) {
+                <span class="promo"> 2 X 1</span>
+                }
+            </div>
+        </div>
+        }
+        <div>
+            <a routerLink="/">Regresar</a>
+        </div>
+
+    </div>
+</main>
  

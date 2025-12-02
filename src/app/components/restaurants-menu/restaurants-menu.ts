@@ -1,48 +1,59 @@
 import { Component, inject, input, OnInit, signal, viewChild } from '@angular/core';
-import { Router, RouterOutlet } from "@angular/router";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import { RestaurantService } from '../../services/restaurant-service';
-import { NgForm } from '@angular/forms';
 import { NewProduct, Product } from '../../Interfaces/Products';
+import { UsersService } from '../../services/user-service';
+import { AuthService } from '../../services/auth-service';
+import { CategoriesService } from '../../services/categories-service';
+import { User } from '../../Interfaces/User';
 
 @Component({
   selector: 'app-restaurants-menu',
-  imports: [RouterOutlet],
   templateUrl: './restaurants-menu.html',
   styleUrl: './restaurants-menu.scss',
 })
 export class RestaurantsMenu implements OnInit{
-    // Recibe el ID del restaurante desde la URL
-    idProduct = input.required<number>(); // O string, según como venga de la URL
+  restaurantName = input.required<string>();
+  usersService = inject(UsersService)
+  router = inject(Router)
+  cargandoInfo = false;
+  user: User | undefined;
+  categoriesService = inject( CategoriesService)
+  auth = inject(AuthService);
+  categories= this.categoriesService.categories
+  restaurantService= inject(RestaurantService)
+  products= this.restaurantService.Product;
+   selectedCategoryId = signal<number | null>(null);
+   idRestaurant = input<number>();
+   product :Product| undefined;
+
   
-    // Inyección del servicio (Usa minúscula inicial por convención)
-    private restaurantService = inject(RestaurantService);
-   
-    products = <Product[]>([]);
-    isLoading = signal<boolean>(true);
-  
-  
-    ngOnInit() {
-      this.loadMenu();
-    }
-  
-    async loadMenu() {
-      try {
-        const data = await this.restaurantService.getProductbyrestaurant(this.idProduct());
-        
-        // Guardamos la lista en la señal
-        this.products.set(data);
-        
-      } catch (error) {
-        console.error('Error cargando el menú:', error);
-      } finally {
-        this.isLoading.set(false);
+  async ngOnInit(): Promise<void> {
+    if (this.restaurantName()) {
+      this.cargandoInfo = true
+      this.user = this.usersService.users.find(restaurant => restaurant.restaurantName === this.restaurantName());
+      if (!this.user){
+        await this.usersService.getusers();
+        this.user = this.usersService.users.find(restaurant => restaurant.restaurantName === this.restaurantName())!;
       }
+      await this.restaurantService.getProductbyrestaurant(this.user.id);      
+      await this.categoriesService.getCategoriesByRestaurant(this.user.id);
+      this.cargandoInfo = false;
     }
-  
-    // Función para calcular precios en el HTML
-    calculateFinalPrice(p: Product): number {
-      const discount = p.discount || 0;
-      return p.price - (p.price * (discount / 100));
+  }
+  selectCategory(categoryId: number | null) {
+    this.selectedCategoryId.set(categoryId);
+  }
+  getFilteredProducts(): Product[] {
+    const selectedId = this.selectedCategoryId();
+    if (selectedId === null) {
+      return this.products;
+    }
+    return this.products.filter(p => p.categoryId === selectedId);
+  }
+  calculateFinalPrice(product: Product): number {
+    const discount = product.discount || 0;
+      return product.price - (product.price * (discount / 100));
     }
   }
 

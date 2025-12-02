@@ -81,16 +81,6 @@ export class CategoriesService {
         this.categories = this.categories.filter(category => category.id !== id);
         return true;
     }
-    async getcategorybyrestaurant(id:string | number) {
-        const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories' + id, {
-            headers:{
-                Authorization: "Bearer "+this.authService.token,
-            },
-        });
-        if (!res.ok) return;
-        const resCategories: RestaurantService = await res.json();
-        return resCategories;
-        }
         async getCategoriesByRestaurant(restaurantId: number) {
             const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories' + restaurantId, {
                 headers:{
