@@ -29,8 +29,19 @@ export class RestaurantService {
     return resProduct;
 
 }
+async getProductbyrestaurant(id:string | number) {
+  const res = await fetch('https://w370351.ferozo.com/api/restaurants/products' + id, {
+      headers:{
+          Authorization: "Bearer "+this.authService.token,
+      },
+  });
+  if (!res.ok) return;
+  const resProduct: RestaurantService = await res.json();
+  return resProduct;
+  }
+  
 async getProductById(id: string | number) {
-  const res = await fetch('https://w370351.ferozo.com/api/products'+ id,  /**cambiar poniendo id de un producti creado */
+  const res = await fetch('https://w370351.ferozo.com/api/products'+ id,  /**cambiar poniendo id de un producto creado */
     {
       headers:{
         Authorization: "Bearer "+this.authService.token,

@@ -32,4 +32,5 @@ authService = inject(AuthService);
         const resJson: User[] = await res.json()
         this.users = resJson;
       }
+      
 }

@@ -26,7 +26,7 @@ export class CategoriesService {
         return resCategories;
     }
     async getCategoryById(id: string | number) {
-        const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories/' + id,  {
+        const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories' + id,  {
             headers:{
                 Authorization: "Bearer "+this.authService.token,
             },
@@ -35,6 +35,7 @@ export class CategoriesService {
         const resCategories: RestaurantService = await res.json();
         return resCategories;
         }
+        
     async addCategory (newCategory: NewCategory) {
         const res = await fetch("https://w370351.ferozo.com/api/restaurants/categories", {
             method: "POST",
@@ -50,7 +51,7 @@ export class CategoriesService {
     return resCategory;
     }  
     async editCategory(categoryEdited: RestaurantsMenu) {
-        const res = await fetch ("https://w370351.ferozo.com/api/restaurants/categories/" + categoryEdited.id, {
+        const res = await fetch ("https://w370351.ferozo.com/api/restaurants/categories" + categoryEdited.id, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -70,7 +71,7 @@ export class CategoriesService {
     return categoryEdited;
     }
     async deleteCategory(id:string | number) {
-        const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories/' + id, {
+        const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories' + id, {
             method: "DELETE",
             headers:{
                 Authorization: "Bearer "+this.authService.token,
@@ -80,7 +81,31 @@ export class CategoriesService {
         this.categories = this.categories.filter(category => category.id !== id);
         return true;
     }
-}
+    async getcategorybyrestaurant(id:string | number) {
+        const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories' + id, {
+            headers:{
+                Authorization: "Bearer "+this.authService.token,
+            },
+        });
+        if (!res.ok) return;
+        const resCategories: RestaurantService = await res.json();
+        return resCategories;
+        }
+        async getCategoriesByRestaurant(restaurantId: number) {
+            const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories' + restaurantId, {
+                headers:{
+                    Authorization: "Bearer "+this.authService.token,
+                },
+            });            
+            if (!res.ok) {
+              this.categories = [];
+              return;
+            }
+            const data = (await res.json()) as RestaurantsMenu[];
+            this.categories = data;
+          }
+       
+    }
 
 
         
