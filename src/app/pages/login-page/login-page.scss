@@ -1,0 +1,125 @@
+//pagina general
+:host{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fff1d7;
+    padding: 1rem;
+}
+//targeta para logearse
+.container-login{
+    background-color: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 2,5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(187, 62, 0, 0.1);
+    text-align: center;
+h1{
+    color: #bb3e00;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0,5px;
+}
+//inputs
+.username{
+text-align: left;
+margin-bottom: 1.5rem;
+}
+label{
+    display: block;
+    font-size: 0.9 rem;
+    color: #7b6f19;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+input{
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 2px solid transparent;
+    background-color: rgba($color: #fff1d7, 0,5);
+    border-radius: 8px;
+    transition: all 0,3 ease;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+    &:focus{
+        outline: none;
+        background-color: white;
+        border-color: #f7ad45;
+        box-shadow: 0 0 0 4px rgba($color-secondary, 0.2);
+    }
+    //quita el color azul feo y le pone color blanco
+    &:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 30px $color-white inset !important;
+     }
+    }
+}
+button{
+    width: 100%;
+    padding: 14px;
+    margin-top: 1rem;
+    background-color: #bb3e00;
+    color: #fff1d7;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0 4px 15px rgba(#bb3e00, 0.3);
+    &:hover{
+        background-color: darken(#bb3e00, 5%);
+        transform: translateY(-2px);
+    }
+    &:disabled{
+     background-color: #ccc;
+     cursor: not-allowed;
+     transform: none;
+     box-shadow: none;
+    }
+}
+//spinner
+app-spinner{
+    display: block;
+    margin: 1rem auto;
+}
+//error
+.error{
+    color:#d32f2f;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    text-align: left;
+    &:last-of-type {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+}
+p{
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #666;
+    a{
+        color: #bb3e00;
+        font-weight: bold;
+        text-decoration: none;
+        &:hover{
+            text-decoration: underline;
+            color: #f7ad45;
+        }
+    }
+}
+//home
+> a{
+    display: inline-block;
+    margin-top: 2rem;
+    color: #7b6f19;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    &:hover{
+        border-bottom-color: #7b6f19;
+    }
+}
+
