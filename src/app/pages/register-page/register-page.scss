@@ -1,0 +1,121 @@
+:host {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  min-height: 100vh;       
+  background-color: #fff1d7; 
+  padding: 2rem;
+}
+
+.container-register {
+  width: 100%;
+  max-width: 500px; 
+}
+
+.card {
+  background-color: white;
+  padding: 3rem; 
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(#bb3e00, 0.15); 
+  
+  h1 {
+    color: #bb3e00;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 800; 
+  }
+
+  
+  .subtitulo {
+    margin-bottom: 1.5rem;
+    text-align: left;
+
+    label {
+      display: block;
+      font-size: 0.95rem;
+      color: #7b6f19;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px; 
+      font-size: 1rem;
+      border: 2px solid transparent;
+      background-color: rgba(#fff1d7, 0.6); 
+      border-radius: 8px;
+      color: #2c2c2c;
+      transition: all 0.3s ease;
+
+      &:focus {
+        outline: none;
+        background-color: white;
+        border-color: #f7ad45; 
+        box-shadow: 0 0 0 4px rgba(#f7ad45, 0.2); 
+      }
+    }
+  }
+
+  // Mensajes de error
+  .error {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  // Botón Principal
+  button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 16px;
+    background-color: #bb3e00;
+    color: white;
+    border: none;
+    border-radius: 50px; 
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(#bb3e00, 0.3);
+    transition: transform 0.2s,background 0.2s;
+
+    &:hover {
+      background-color: darken(#bb3e00, 5%);
+      transform: translateY(-2px); // Se levanta un poco
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      box-shadow: none;
+      transform: none;
+      cursor: not-allowed;
+    }
+  }
+
+  // Spinner
+  app-spinner {
+    display: block;
+    margin: 1rem auto;
+  }
+
+  // Texto de Login
+  p {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: #666;
+
+    a {
+      color: #bb3e00;
+      font-weight: bold;
+      text-decoration: none;
+      
+      &:hover {
+        color: #f7ad45;
+        text-decoration: underline;
+      }
+    }
+  }
+}

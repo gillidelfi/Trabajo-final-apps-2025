@@ -5,7 +5,7 @@
         
         <div class="subtitulo">
           <label for="restaurantName">Nombre del restaurante</label>
-          <input id="restaurantName" name="restaurantName" type="restaurantName" id="restaurantName" ngModel #restaurantName="ngModel" required="true" autocomplete="restaurantName">
+          <input id="restaurantName" name="restaurantName" type="restaurantName"  ngModel #restaurantName="ngModel" required="true" autocomplete="restaurantName">
           @if (restaurantName.invalid && !restaurantName.pristine) {
             <p class="error">Debe colocar el nombre de su restaurante.</p>
           }
@@ -20,7 +20,7 @@
           <div class="subtitulo">
             <label for="password">Repite la contraseña</label>
             <input id="password2" name="password2" type="password" ngModel #password2="ngModel" minlength="4" autocomplete="new-password">
-            @if (password.invalid && !password.pristine) {
+            @if (password2.invalid && !password2.pristine) {
               <p class="error">Debe colocar una contraseña de al menos 4 caracteres.</p>
             }
           </div>
