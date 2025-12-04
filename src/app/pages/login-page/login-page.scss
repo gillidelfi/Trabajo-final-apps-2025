@@ -39,7 +39,7 @@ input{
     padding: 12px 15px;
     font-size: 1rem;
     border: 2px solid transparent;
-    background-color: rgba($color: #fff1d7, 0,5);
+    background-color: rgba( #fff1d7, 0.5);
     border-radius: 8px;
     transition: all 0,3 ease;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
@@ -47,11 +47,11 @@ input{
         outline: none;
         background-color: white;
         border-color: #f7ad45;
-        box-shadow: 0 0 0 4px rgba($color-secondary, 0.2);
+        box-shadow: 0 0 0 4px rgba(#f7ad45, 0.2);
     }
     //quita el color azul feo y le pone color blanco
     &:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0 30px $color-white inset !important;
+        -webkit-box-shadow: 0 0 0 30px white inset !important;
      }
     }
 }

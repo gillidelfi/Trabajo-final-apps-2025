@@ -9,28 +9,22 @@ export const routes: Routes = [
     {
         path:"login",
         component:LoginPage,
-        canActivate: [onlyPublicUserGuard]
     },
    {
     path:"register",
     component:RegisterPage,
-    canActivate: [onlyPublicUserGuard]
-
    },
    {
-    path:"",
+    path:"**",
     component:Home,
-    canActivate: [onlyPublicUserGuard]
    },
    {
-    path:"restaurantPage",
+    path:"restaurants",
     component:RestaurantsPage,
-    canActivate: [onlyPublicUserGuard]
    },
    {
-    path:"restaurant/:id",
+    path:"restaurant/:restaurantName",
     component:RestaurantsMenu,
-    canActivate: [onlyPublicUserGuard]
    },
 ]
 

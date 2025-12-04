@@ -3,10 +3,10 @@
   <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
     
    <div class="username">
-    <label for="Restaurant-name">Correo electrónico</label>
+    <label for="Restaurant-name">Nombre del restaurante</label>
      <input id= "restaurantName" name= "restaurantName" type="restaurantName" ngModel #restaurantName="ngModel" required="true" autocomplete="restaurantName" ><br>
      @if (restaurantName.invalid && !restaurantName.pristine) {
-       <p class="error">Debe colocar un correo electrónico.</p>
+       <p class="error">Debe colocar un resaturante válido.</p>
      }   
    </div>
      <div class="username">

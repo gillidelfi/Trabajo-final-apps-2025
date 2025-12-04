@@ -1,8 +1,6 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { AuthService } from './auth-service';
-import { RestaurantService } from './restaurant-service';
-import { RestaurantsMenu } from '../components/restaurants-menu/restaurants-menu';
-import { NewCategory } from '../Interfaces/Categories';
+import { Category, NewCategory, UpdateCategoryRequestDto } from '../Interfaces/Categories';
 
 @Injectable({
   providedIn: 'root'
@@ -11,90 +9,83 @@ import { NewCategory } from '../Interfaces/Categories';
 export class CategoriesService {
     aleatorio = Math.random();
     authService = inject(AuthService);
-    categories: RestaurantsMenu[] = [];
+    categories = signal <Category[]> ([]);
+    readonly API_USERS_URL = "https://w370351.ferozo.com/api/Users";
+    readonly API_CATEGORIES_URL = "https://w370351.ferozo.com/api/Categories";
 
-    async getCategories() {
-        const res = await fetch("https://w370351.ferozo.com/api/restaurants/categories",{
-            headers: {
-                Authorization: "Bearer "+this.authService.token,
-            },
-        });
-
-        if (!res.ok) return;
-        const resCategories: RestaurantsMenu[] = await res.json();
-        this.categories = resCategories;
-        return resCategories;
-    }
-    async getCategoryById(id: string | number) {
-        const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories' + id,  {
-            headers:{
-                Authorization: "Bearer "+this.authService.token,
-            },
-        });
-        if (!res.ok) return;
-        const resCategories: RestaurantService = await res.json();
-        return resCategories;
+    async getCategoriesByRestaurant(restaurantId: number) {
+        const res = await fetch(`${this.API_USERS_URL}/${restaurantId}/categories`);
+        if (!res.ok) {
+            this.categories.set([]);
+            return;
         }
-        
-    async addCategory (newCategory: NewCategory) {
-        const res = await fetch("https://w370351.ferozo.com/api/restaurants/categories", {
+        const data = (await res.json()) as Category[];
+        this.categories.set(data);
+    }
+    async addCategory (category: NewCategory) {
+        const res = await fetch(`${this.API_CATEGORIES_URL}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: "Bearer " + this.authService.token,
+                Authorization: "Bearer ${this.authService.token}"
       },
-      body: JSON.stringify(newCategory),
+      body: JSON.stringify(category)
     });
-    if (!res.ok) return;
-    const resCategory: RestaurantsMenu = await res.json();
-    this.categories.push(resCategory);
-    return resCategory;
-    }  
-    async editCategory(categoryEdited: RestaurantsMenu) {
-        const res = await fetch ("https://w370351.ferozo.com/api/restaurants/categories" + categoryEdited.id, {
+    if (!res.ok) return undefined;
+    const newCategory: Category = (await res.json()) as Category;
+    this.categories.update(current => [...current, newCategory]);
+    return newCategory;
+}
+
+    async updateCategory(id: number, categoryData: UpdateCategoryRequestDto) {
+        const res = await fetch(`${this.API_CATEGORIES_URL}/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + this.authService.token,
-        },
-        body: JSON.stringify(categoryEdited)
-    });
-    if (!res.ok) return;
-
-        /**edita la lista reemplazando solamente el que editamos  */
-    this.categories = this.categories.map(category => {
-        if (category.id === categoryEdited.id) {
-            return categoryEdited;
-        };
-        return category;
-    });
-    return categoryEdited;
-    }
-    async deleteCategory(id:string | number) {
-        const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories' + id, {
-            method: "DELETE",
-            headers:{
-                Authorization: "Bearer "+this.authService.token,
-            },
-        });
-        if (!res.ok) return false;
-        this.categories = this.categories.filter(category => category.id !== id);
-        return true;
-    }
-        async getCategoriesByRestaurant(restaurantId: number) {
-            const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories' + restaurantId, {
-                headers:{
-                    Authorization: "Bearer "+this.authService.token,
+                Authorization: "Bearer ${this.authService.token}"
                 },
-            });            
-            if (!res.ok) {
-              this.categories = [];
-              return;
-            }
-            const data = (await res.json()) as RestaurantsMenu[];
-            this.categories = data;
-          }
-       
+            body: JSON.stringify(categoryData)
+        });
+        if (!res.ok) return undefined;
+        const updatedCategory = (await res.json()) as Category;
+        this.categories.update(currentCategories => currentCategories.map(cat =>cat.id === id ? updatedCategory : cat));
+        return updatedCategory;
+        }
+        async deleteCategory(id:string | number) {
+            const res = await fetch(`${this.API_CATEGORIES_URL}/${id}`, {
+                method: "DELETE",
+                headers:{
+                    Authorization: "Bearer ${this.authService.token}"
+                }
+            });
+            if (!res.ok) return false;
+            this.categories.update (currentCategories => currentCategories.filter(cat => cat.id !== id));
+            return true;
+        }
+    
+    // async getCategories() {
+    //     const res = await fetch("https://w370351.ferozo.com/api/restaurants/categories",{
+    //         headers: {
+    //             Authorization: "Bearer "+this.authService.token,
+    //         },
+    //     });
+
+    //     if (!res.ok) return;
+    //     const resCategories: RestaurantsMenu[] = await res.json();
+    //     this.categories = resCategories;
+    //     return resCategories;
+    // }
+    // async getCategoryById(id: string | number) {
+    //     const res = await fetch('https://w370351.ferozo.com/api/restaurants/categories' + id,  {
+    //         headers:{
+    //             Authorization: "Bearer "+this.authService.token,
+    //         },
+    //     });
+    //     if (!res.ok) return;
+    //     const resCategories: RestaurantService = await res.json();
+    //     return resCategories;
+    //     }
+        
     }
 
 

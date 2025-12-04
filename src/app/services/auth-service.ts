@@ -20,7 +20,7 @@ export class AuthService implements OnInit{
   /**autentica al asuario en el back y nos devuelve el token */
   async login(loginData: LoginData){
     const res = await fetch("https://w370351.ferozo.com/api/Authentication/login",
-      {
+      { 
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(loginData)
