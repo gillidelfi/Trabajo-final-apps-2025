@@ -30,7 +30,7 @@ export class RestaurantsMenu implements OnInit{
   
   async ngOnInit(): Promise<void> {
     if (this.restaurantName()) {
-      this.cargandoInfo = true
+      this.cargandoInfo = true;
       this.user = this.usersService.users.find(restaurant => restaurant.restaurantName === this.restaurantName());
       if (!this.user){
         await this.usersService.getusers();

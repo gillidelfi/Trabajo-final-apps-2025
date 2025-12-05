@@ -1,28 +1,4 @@
-<header>
-    <nav>
-        <div>
-            <a>BIENVENIDO</a>
-            <button type="button"></button>
-            <div>
-                <ul>
-                    <li>
-                        <a>Home</a>
-                    </li>
-                    <li>
-                        <a>Favoritos⭐</a>
-                    </li>
-                </ul>
-                <form>
-                    <input>
-                    <button>Buscar</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-</header>
-
-<main>
-    <div>
+<div>
         @if(cargandoInfo){
         <p>Cargando Información...</p>
         } @else if(!user) {
@@ -31,18 +7,25 @@
         <h1>{{user.restaurantName}} </h1>
 
         <div>
-            <p>Teléfono:{{user.phoneNumber}}</p>
-            <p>Dirección:{{user.address}}</p>
+            <p>📞{{user.phoneNumber}}</p>
+            <p>📍{{user.address}}</p>
         </div>
         }
+        <h2>Nuestro Menú</h2>
+        <div>
+            @for (category of categories(); track category.id) {
+            <button (click)="selectCategory(category.id)"
+              [class.active]="selectedCategoryId() === category.id">
+              {{ category.name }}
+            </button>
+            }
+          </div>
 
-        <p > Menú</p>
         @for (producto of getFilteredProducts(); track producto.id) {
         <div>
             @if(producto. featured){
             <span class="featured">⭐ Descatado</span>
             }
-            <strong>{{producto.name}}</strong>
             @if (producto.discount) {
             <span class="discount">{{producto.discount}} % off 🔥 </span>
             }
@@ -75,5 +58,4 @@
         </div>
 
     </div>
-</main>
  

@@ -15,16 +15,16 @@ export const routes: Routes = [
     component:RegisterPage,
    },
    {
-    path:"**",
-    component:Home,
-   },
-   {
     path:"restaurants",
     component:RestaurantsPage,
    },
    {
-    path:"restaurant/:restaurantName",
+    path:"restaurants-menu/:, restaurantName",
     component:RestaurantsMenu,
+   },
+   {
+    path:"**",
+    component:Home,
    },
 ]
 

@@ -32,5 +32,17 @@ authService = inject(AuthService);
         const resJson: User[] = await res.json()
         this.users = resJson;
       }
-      
+      async getUsersbyId(id: string | number) {
+        const res = await fetch("https://w370351.ferozo.com/api/users" + id,
+          {
+            method: 'GET',
+            headers: {
+              'Authorization': 'Bearer ' + this.authService.token,
+              'Content-Type': 'application/json'
+            }
+          });
+        if (!res.ok) return;
+        const user: User = await res.json();
+        return user;
+      }
 }

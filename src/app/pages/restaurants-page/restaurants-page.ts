@@ -3,13 +3,12 @@ import { AuthService } from '../../services/auth-service';
 import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../../services/user-service';
 import { FormsModule } from '@angular/forms';
-import { RestaurantsListItems } from "../../components/restaurants-list-items/restaurants-list-items";
 import { User } from '../../Interfaces/User';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-restaurants-page',
-  imports: [RouterModule, FormsModule, RestaurantsListItems],
+  imports: [RouterModule, FormsModule ],
   templateUrl: './restaurants-page.html',
   styleUrl: './restaurants-page.scss',
 })
@@ -34,7 +33,7 @@ export class RestaurantsPage implements OnInit{
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigate(['/restaurant-menu', restaurantName]);
+        this.router.navigate(['/restaurants-menu', restaurantName]);
       }
     });
 
