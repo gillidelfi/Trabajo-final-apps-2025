@@ -1,0 +1,57 @@
+<div class="container-configuracion">
+    @if (cargando) {
+    <p class="loading">Cargando información...</p>
+    } @else if (error) {
+    <p class="error">{{ error }}</p>
+    } @else if (user) {
+    <div class="info-user">
+      <h2>Información del</h2>
+      <div>
+        <span>Restaurante:</span>
+        <span>{{ user.restaurantName }}</span>
+      </div>
+      <div>
+        <span>📍 Dirección:</span>
+        <span>{{ user.address }}</span>
+      </div>
+      <div>
+        <span>📞 Teléfono:</span>
+        <span>{{ user.phoneNumber }}</span>
+      </div>
+      <div>
+        <span>🧑‍🍳 Dueño:</span>
+        <span>{{ user.firstName }} {{ user.lastName }}</span>
+      </div>
+    </div>
+  
+    <div class="acciones">
+      <button type="button" [routerLink]=""> //agregar ruta correcta 
+        ✏️ Editar Usuario
+      </button>
+      <button type="button" (click)="openDeleteConfirm()">
+        🗑️ Eliminar Usuario
+      </button>
+    </div>
+    <div>
+      <a routerLink="/">← Regresar</a>
+    </div>
+  
+    @if (showDeleteConfirm) {
+    <div class="delete">
+      <div>
+        <h3>¿Confirmas esta acción?</h3>
+        <div class="confirmation-actions">
+          <button type="button" (click)="deleteUser()" [disabled]="isDeleting">
+            {{ isDeleting ? 'Eliminando...' : 'Sí, eliminar la cuenta' }}
+          </button>
+          <button type="button" (click)="closeDeleteConfirm()" [disabled]="isDeleting">
+            Cancelar acción
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+    } @else {
+    <p class="error">No es posible cargar la información del usuario.</p>
+    }
+  </div>

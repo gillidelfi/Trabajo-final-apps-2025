@@ -6,6 +6,7 @@ import { UsersService } from '../../services/user-service';
 import { AuthService } from '../../services/auth-service';
 import { CategoriesService } from '../../services/categories-service';
 import { User } from '../../Interfaces/User';
+import { Category } from '../../Interfaces/Categories';
 
 @Component({
   selector: 'app-restaurants-menu',
@@ -13,31 +14,38 @@ import { User } from '../../Interfaces/User';
   styleUrl: './restaurants-menu.scss',
 })
 export class RestaurantsMenu implements OnInit{
+
   restaurantName = input.required<string>();
-  usersService = inject(UsersService)
-  router = inject(Router)
+  usersService = inject(UsersService);
+  router = inject(Router);
   cargandoInfo = false;
   user: User | undefined;
-  categoriesService = inject( CategoriesService)
+  categoriesService = inject( CategoriesService);
   auth = inject(AuthService);
-  categories= this.categoriesService.categories
-  restaurantService= inject(RestaurantService)
-  products= this.restaurantService.Product;
-   selectedCategoryId = signal<number | null>(null);
-   idRestaurant = input<number>();
-   product :Product| undefined;
+  restaurantService= inject(RestaurantService);
+  selectedCategoryId = signal<number | null>(null);
+  idRestaurant = input<number>();
+  product :Product| undefined;
+  categories: Category[] = [];
+  products: Product[] = [];
 
-  
-  async ngOnInit(): Promise<void> {
-    if (this.restaurantName()) {
-      this.cargandoInfo = true;
-      this.user = this.usersService.users.find(restaurant => restaurant.restaurantName === this.restaurantName());
-      if (!this.user){
-        await this.usersService.getusers();
-        this.user = this.usersService.users.find(restaurant => restaurant.restaurantName === this.restaurantName())!;
-      }
-      await this.restaurantService.getProductbyrestaurant(this.user.id);      
-      await this.categoriesService.getCategoriesByRestaurant(this.user.id);
+  volver() {
+    this.router.navigate(['/restaurants']);
+    }
+    async ngOnInit() {
+      const restaurantId = this.idRestaurant();
+      if (restaurantId) {
+        this.cargandoInfo = true;
+        this.user = this.usersService.users.find(r => r.id === restaurantId);
+        if (!this.user) {
+          this.user = await this.usersService.getUsersbyId(restaurantId);
+        }
+        await this.restaurantService.getProductbyrestaurant(restaurantId);
+        this.products = this.restaurantService.Product;
+
+        await this.categoriesService.getCategoriesByRestaurant(restaurantId);
+        this.categories = this.categoriesService.categories();
+
       this.cargandoInfo = false;
     }
   }

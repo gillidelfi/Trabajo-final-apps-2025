@@ -1,0 +1,69 @@
+<div class="general-container">
+    @if (idProduct()) {
+    <h2>Editar Producto</h2>
+    }
+    @else {
+    <h2>Nuevo Producto</h2>
+    }
+    <div class="form-section">
+        <form (ngSubmit)="handleFormSubmission(newProductForm)" #newProductForm="ngForm">
+            <div class="form-group">
+                <input id="name" type="text" name="name" placeholder="Nombre del Producto"
+                    ngModel="{{productoOriginal?.name}}" #name="ngModel" required="true">
+                @if (name.dirty && name.invalid) {
+                <p class="error">El nombre es obligatorio y no puede ser una sola letra</p>
+                }
+            </div>
+            <div class="form-group">
+                <input id="description" type="text" name="description" placeholder="Descripción del Producto"
+                    ngModel="{{productoOriginal?.description}}" #description="ngModel" required="true">
+                @if (description.dirty && description.invalid) {
+                <p class="error">La descripción del producto es obligatoria</p>
+                }
+            </div>
+            <div class="form-group checkbox">
+                <input id="price" type="text" name="price" placeholder="Precio" ngModel="{{productoOriginal?.price}}"
+                    #price="ngModel" required="true">
+                @if (price.dirty && price.invalid) {
+                <p class="error">Introduzca el precio del producto</p>
+                }
+            </div>
+            <div class="form-group checkbox">
+                <label for="IsFeatured">¿Desea destacar su producto?</label>
+                <input id="IsFeatured" type="checkbox" name="featured" ngModel #IsFeatured="ngModel">
+            </div>
+            <div class="form-group">
+                <input id="recommendedFor" type="text" name="recommendedFor" placeholder="Cantidad de comensales: "
+                    ngModel="{{productoOriginal?.recommendedFor}}" #recommendedFor="ngModel" required="true">
+            </div>
+            <div class="form-group">
+                <input id="discount" type="text" name="discount" placeholder="Descuento del producto"
+                    ngModel="{{productoOriginal?.discount}}" #discount="ngModel">
+            </div>
+            <div class="form-group checkbox">
+                <label for="hasHappyHour">¿Su producto tiene Happy Hour?</label>
+                <input id="hasHappyHour" type="checkbox" name="hasHappyHour" placeholder="" ngModel
+                    #hasHappyHour="ngModel">
+            </div>
+            <div class="form-group checkbox">
+                <label for="categoryId">Categoría</label>
+                <select name="categoryId" id="categoryId" required ngModel="{{productoOriginal?.categoryId}}"
+                    #categoryId="ngModel">
+                    @for (category of this.categoriesService.categories(); track $index) {
+                    <option [value]="category.id">{{ category.name }}</option>
+                    }
+                </select>
+            </div>
+
+            @if (idProduct()) {
+            <button class="btn-body" [disabled]="newProductForm.invalid || isLoading">Editar</button>
+            } @else {
+            <button class="btn-body" [disabled]="newProductForm.invalid || isLoading">Crear</button>
+            }
+
+            @if (isLoading) {
+            <app-spinner></app-spinner>
+            }
+        </form>
+    </div>
+</div>

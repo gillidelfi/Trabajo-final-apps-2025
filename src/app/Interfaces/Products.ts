@@ -4,13 +4,13 @@ export interface Product {
         price: number,
         categoryId: number,
         featured: boolean,
-        labels: 
-          string[],
+        labels: string[],
         recommendedFor: number,
         discount: number,
         hasHappyHour: boolean,
         id: number,
-        isDestacado: boolean
+        isDestacado: boolean,
+        restaurantId: number,
       }
 export type NewProduct = Omit<Product, "id">;
 

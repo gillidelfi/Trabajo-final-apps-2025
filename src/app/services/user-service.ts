@@ -33,7 +33,7 @@ authService = inject(AuthService);
         this.users = resJson;
       }
       async getUsersbyId(id: string | number) {
-        const res = await fetch("https://w370351.ferozo.com/api/users" + id,
+        const res = await fetch("https://w370351.ferozo.com/api/users/" + id,
           {
             method: 'GET',
             headers: {
@@ -44,5 +44,17 @@ authService = inject(AuthService);
         if (!res.ok) return;
         const user: User = await res.json();
         return user;
+      }
+      async deleteUser(id: string | number) {
+        const res = await fetch("https://w370351.ferozo.com/api/users/" + id,
+           {
+          method: 'DELETE',
+          headers: {
+            'Authorization': 'Bearer ' + this.authService.token,
+          }
+        });
+        if (!res.ok) return false;
+        this.users = this.users.filter(user => user.id !== id);
+        return true;
       }
 }

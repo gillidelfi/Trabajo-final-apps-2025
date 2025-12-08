@@ -19,7 +19,7 @@ export const routes: Routes = [
     component:RestaurantsPage,
    },
    {
-    path:"restaurants-menu/:, restaurantName",
+    path:"restaurants-menu/:RestaurantName",
     component:RestaurantsMenu,
    },
    {
@@ -28,16 +28,3 @@ export const routes: Routes = [
    },
 ]
 
-  /*.hay que crear este layout?
-  {
-     path:"",
-    component:LoggedLayout, 
-    canActivateChild: [onlyLoggedUserGuard],
-    children: [
-        {    
-            path:"",
-            component:
-        },
-    ]
-   }    
-]; */

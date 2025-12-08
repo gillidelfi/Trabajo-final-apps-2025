@@ -1,61 +1,61 @@
-<div>
-        @if(cargandoInfo){
-        <p>Cargando Información...</p>
-        } @else if(!user) {
-        <p>No se encontró el restaurante buscado</p>
-        } @else {
-        <h1>{{user.restaurantName}} </h1>
-
-        <div>
-            <p>📞{{user.phoneNumber}}</p>
-            <p>📍{{user.address}}</p>
-        </div>
-        }
-        <h2>Nuestro Menú</h2>
-        <div>
-            @for (category of categories(); track category.id) {
+@if(cargandoInfo){
+    <p>Cargando Información...</p>
+} @else if(!user) {
+    <p>No se encontró el restaurante buscado</p>
+} @else {
+    <h1>{{user.restaurantName}} </h1>
+    <div>
+        <p>📞{{user.phoneNumber}}</p>
+        <p>📍{{user.address}}</p>
+    </div>
+        
+    <h2>Nuestro Menú</h2>
+    <div>
+        @for (category of categories; track category.id) {
             <button (click)="selectCategory(category.id)"
               [class.active]="selectedCategoryId() === category.id">
-              {{ category.name }}
+             {{ category.name }}
             </button>
             }
-          </div>
+    </div>
 
-        @for (producto of getFilteredProducts(); track producto.id) {
+    @for (producto of getFilteredProducts(); track producto.id) {
         <div>
             @if(producto. featured){
-            <span class="featured">⭐ Descatado</span>
+                <span class="featured">⭐ Descatado</span>
             }
             @if (producto.discount) {
-            <span class="discount">{{producto.discount}} % off 🔥 </span>
+                <span class="discount">{{producto.discount}} % off 🔥 </span>
             }
             @if (producto.hasHappyHour) {
-            <span class="happy-hour">Happy Hour 🍻</span>
+                <span class="happy-hour">Happy Hour 🍻</span>
             }
 
             <h4>{{ producto.name }}</h4>
             <p class="description">{{ producto.description }}</p>
+           
             @if (producto.recommendedFor) {
-            <span>🔔{{ producto.recommendedFor }}</span>
+                <span>🔔{{ producto.recommendedFor }}</span>
             }
 
             <div class="price-info">
                 @if (producto.discount >0) {
-                <span> ${{calculateFinalPrice(producto)}}</span>
+                    <span> ${{calculateFinalPrice(producto)}}</span>
                 }
                 @else {
                     <span>${{producto.price}}</span>
                 }
 
                 @if (producto.hasHappyHour) {
-                <span class="promo"> 2 X 1</span>
+                    <span class="promo"> 2 X 1</span>
                 }
             </div>
         </div>
         }
         <div>
-            <a routerLink="/">Regresar</a>
-        </div>
+            <button (click)="volver()">Regresar</button>       
+         </div>
+        }
 
-    </div>
+
  
