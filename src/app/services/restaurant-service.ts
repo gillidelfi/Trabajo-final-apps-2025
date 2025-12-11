@@ -61,7 +61,7 @@ export class RestaurantService {
     }
   }
 async getProductById(id: string | number) {
-  const res = await fetch('https://w370351.ferozo.com/api/products'+ id,  
+  const res = await fetch('https://w370351.ferozo.com/api/products/'+ id,  
     {
       headers:{
         Authorization: "Bearer "+this.authService.token,
@@ -75,7 +75,7 @@ async getProductById(id: string | number) {
 
 }
 async editProduct(productoEditado: Product) {
-  const res = await fetch ("https://w370351.ferozo.com/api/products"+ productoEditado.id, 
+  const res = await fetch ('https://w370351.ferozo.com/api/products/'+ productoEditado.id, 
   {
     method: "PUT",
     headers: {
@@ -98,7 +98,7 @@ async editProduct(productoEditado: Product) {
 }
  /** Borra un contacto */
  async deleteProduct(id:string | number) {
-  const res = await fetch('https://w370351.ferozo.com/api/products' + id,
+  const res = await fetch('https://w370351.ferozo.com/api/products/' + id,
     {
       method: "DELETE",
       headers:{
@@ -110,7 +110,7 @@ async editProduct(productoEditado: Product) {
   return true;
 }
 async toggleDestacado(id: string | number) {
-  const res = await fetch("https://w370351.ferozo.com/api/products" + id + "/destacado", 
+  const res = await fetch('https://w370351.ferozo.com/api/products/' + id + '/destacado', 
     {
       method: "POST",
       headers:{
@@ -128,7 +128,7 @@ return Product;
 return true;
 }
 async toggleHappyHour(id: string | number, p0: { toggleHappyHour: boolean; }) {
-  const res = await fetch("https://w370351.ferozo.com/api/products" + id + "/hayppyhour", 
+  const res = await fetch('https://w370351.ferozo.com/api/products/' + id + '/hayppyhour', 
     {
       method: "PUT",
       headers:{
@@ -146,7 +146,7 @@ return Product;
 return true;
 }
 async toggleDiscount(id: string | number, p0: { discount: number; }) {
-  const res = await fetch("https://w370351.ferozo.com/api/products" + id + "/discount", 
+  const res = await fetch('https://w370351.ferozo.com/api/products/' + id + '/discount', 
     {
       method: "PUT",
       headers:{

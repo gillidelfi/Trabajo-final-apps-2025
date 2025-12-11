@@ -163,7 +163,7 @@ async deleteProduct(id: number) {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Sí',
-    cancelButtonText: 'Ca'
+    cancelButtonText: 'Cancelar'
   });
 
   if (!confirm.isConfirmed) return;
