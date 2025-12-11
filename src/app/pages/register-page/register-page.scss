@@ -4,7 +4,7 @@
   align-items: center;     
   min-height: 100vh;       
   background-color: #fff1d7; 
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .container-register {
@@ -14,7 +14,7 @@
 
 .card {
   background-color: white;
-  padding: 3rem; 
+  padding: 3rem 1.5rem;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(#bb3e00, 0.15); 
   
@@ -22,7 +22,7 @@
     color: #bb3e00;
     text-align: center;
     margin-bottom: 2rem;
-    font-size: 2rem;
+    font-size: clamp(1.75rem, 5vw, 2rem);
     font-weight: 800; 
   }
 
@@ -58,7 +58,6 @@
     }
   }
 
-  // Mensajes de error
   .error {
     color: red;
     font-size: 0.85rem;
@@ -83,7 +82,7 @@
 
     &:hover {
       background-color: #852f04;
-      transform: translateY(-2px); // Se levanta un poco
+      transform: translateY(-2px); 
     }
 
     &:disabled {
@@ -117,5 +116,11 @@
         text-decoration: underline;
       }
     }
+  }
+}
+// Media Query: pantalla  menor a 400px
+@media (max-width: 400px) {
+  .card {
+    padding: 2rem 1rem; 
   }
 }
