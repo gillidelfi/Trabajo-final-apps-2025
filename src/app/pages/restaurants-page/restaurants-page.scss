@@ -1,0 +1,114 @@
+// Colores base: #bb3e00 (Principal), #fff1d7 (Fondo), #f7ad45 (Secundario)
+$color-principal: #bb3e00;
+$color-fondo: #fff1d7;
+$color-secundario: #f7ad45;
+$color-texto-principal: #2c2c2c;
+$color-texto-suave: #666;
+$color-blanco: white;
+
+// 1. Estilos Globales y Contenedor Principal
+:host {
+    display: block; 
+    min-height: 100vh;
+    background-color: $color-fondo; /* #fff1d7 */
+    padding: 2rem 1rem;
+}
+
+.page-listado {
+    // Contenedor que centra y limita el ancho (equivalente a un 'container')
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+// 2. CSS Grid para la Lista de Restaurantes
+.lista-restaurantes {
+    display: grid;
+    // La clave de la responsividad con Grid:
+    // Crea columnas que se ajustan automáticamente entre un mínimo de 300px y 1fr.
+    // Esto asegura 1, 2, 3 o 4 columnas dependiendo del ancho de la pantalla.
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px; /* Espacio entre las tarjetas */
+}
+
+// 3. Estilos de la Tarjeta
+.card-restaurante {
+    background-color: $color-blanco;
+    border-radius: 12px;
+    // Sombra consistente con tus otros estilos
+    box-shadow: 0 4px 15px rgba($color-principal, 0.1); 
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    height: 100%; // Asegura que las tarjetas sean del mismo alto en una fila de grid
+    
+    &:hover {
+        transform: translateY(-5px); 
+        box-shadow: 0 10px 20px rgba($color-principal, 0.2); 
+    }
+}
+
+.card-cuerpo {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.card-titulo {
+    color: $color-principal; /* #bb3e00 */
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    /* Título fluido */
+    font-size: clamp(1.2rem, 4vw, 1.5rem); 
+}
+
+.card-texto {
+    color: $color-texto-principal; /* #2c2c2c */
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    
+    strong {
+        color: $color-texto-suave; /* #666 */
+        font-weight: 600;
+    }
+}
+
+
+// 4. Estilos del Botón "Ver Menú"
+.btn-menu {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    
+    // Estilo outline
+    color: $color-principal; /* #bb3e00 */
+    background-color: transparent;
+    border: 2px solid $color-principal; /* #bb3e00 */
+    
+    &:hover {
+        background-color: $color-principal; /* #bb3e00 */
+        color: $color-blanco;
+        box-shadow: 0 4px 10px rgba($color-principal, 0.3);
+    }
+}
+
+// 5. Ajustes Responsivos Finos
+
+// Reducir espaciado en móviles
+@media (max-width: 500px) {
+    .lista-restaurantes {
+        gap: 15px; /* Reducir el espacio entre tarjetas */
+    }
+
+    .card-cuerpo {
+        padding: 1rem;
+    }
+
+    .card-titulo {
+        margin-bottom: 0.5rem;
+    }
+}

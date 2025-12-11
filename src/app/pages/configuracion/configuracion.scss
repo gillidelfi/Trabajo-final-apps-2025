@@ -1,0 +1,272 @@
+$color-principal: #bb3e00; // Marrón/Naranja Oscuro
+$color-fondo: #fff1d7;    // Crema/Fondo Claro
+$color-secundario: #f7ad45; // Naranja Claro (Hover, Focus)
+$color-texto-label: #7b6f19; // Color de las etiquetas
+$color-rojo-peligro: #d32f2f; // Rojo para acciones definitorias
+$color-texto-suave: #666;    // Gris para mensajes
+$color-blanco: white;
+$color-texto-principal: #2c2c2c;
+
+// 1. Estilos Globales y Contenedor Principal
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: $color-fondo; /* #fff1d7 */
+  padding: 2rem 1rem;
+}
+
+.container-configuracion {
+  // Contenedor que centra el contenido y limita el ancho
+  width: 100%;
+  max-width: 900px; /* Ancho máximo ideal para una página de configuración */
+  margin: 0 auto;
+}
+
+// 2. Estados (Cargando y Error)
+.loading-state, .error-state {
+  text-align: center;
+  padding: 3rem;
+  // Usamos el estilo de tarjeta para estos mensajes
+  background-color: $color-blanco; 
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba($color-principal, 0.1);
+  margin-top: 2rem;
+}
+
+.loading, .error {
+  font-size: 1.2rem;
+  color: $color-texto-principal;
+}
+
+.error-state .error {
+  color: $color-rojo-peligro;
+  margin-bottom: 1rem;
+}
+
+// 3. Estilos de la Tarjeta Base (Card)
+.card {
+  background-color: $color-blanco;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba($color-principal, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba($color-texto-label, 0.1);
+  padding-bottom: 0.75rem;
+
+  h2, h3 {
+    color: $color-principal;
+    font-weight: 700;
+    margin: 0;
+  }
+}
+
+// 4. Sección de Información del Restaurante (.info-user)
+
+.info-grid {
+  // Usamos CSS Grid para la rejilla de información
+  display: grid;
+  // 2 columnas que ocupan igual espacio. En móvil, se adaptará a 1 columna.
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  gap: 15px 30px; /* Espacio vertical y horizontal */
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: 600;
+  color: $color-texto-label; /* #7b6f19 */
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+}
+
+.value {
+  font-size: 1.1rem;
+  color: $color-texto-principal;
+  word-break: break-word; /* Evita desbordamiento de texto largo (direcciones) */
+}
+
+// 5. Botones de Acción (Íconos y Pequeños)
+
+// Botones de ícono (Editar/Eliminar en la cabecera)
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba($color-secundario, 0.2);
+  }
+
+  &.danger:hover {
+    background-color: rgba($color-rojo-peligro, 0.2);
+  }
+}
+
+// Botones pequeños de lista
+.btn-small {
+  background-color: rgba($color-principal, 0.1);
+  color: $color-principal;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  
+  &:hover {
+    background-color: $color-principal;
+    color: $color-blanco;
+  }
+
+  &.danger {
+    background-color: rgba($color-rojo-peligro, 0.1);
+    color: $color-rojo-peligro;
+    margin-left: 0.5rem;
+    
+    &:hover {
+      background-color: $color-rojo-peligro;
+      color: $color-blanco;
+    }
+  }
+}
+
+// Botón primario grande (+ Nueva Categoría/Producto)
+.btn-primary {
+  background-color: $color-principal; /* #bb3e00 */
+  color: $color-blanco;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 18px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba($color-principal, 0.3);
+
+  &:hover {
+    background-color: #852f04;
+    transform: translateY(-1px);
+  }
+}
+
+// 6. Listas (Categorías y Productos)
+.list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba($color-texto-label, 0.1);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.item-name {
+  font-size: 1rem;
+  color: $color-texto-principal;
+  font-weight: 500;
+}
+
+.prod-info {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Ocupa el espacio disponible */
+  gap: 15px; /* Espacio entre nombre y precio */
+}
+
+.item-price {
+  font-weight: 700;
+  color: $color-principal;
+  font-size: 1.05rem;
+}
+
+.empty-msg {
+  color: $color-texto-suave; /* #666 */
+  text-align: center;
+  padding: 2rem 0;
+  font-style: italic;
+}
+
+// 7. Pie de Página y Enlace
+.footer-actions {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.back-link {
+  color: $color-texto-label;
+  text-decoration: none;
+  font-size: 0.95rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// 8. Media Queries (Ajustes finos para Móviles)
+
+@media (max-width: 600px) {
+  .card {
+    padding: 1rem; /* Reducir padding de la tarjeta en móviles */
+  }
+  
+  // Reducir el espacio en el encabezado
+  .header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    
+    h2, h3 {
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  .user-actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* Mueve los íconos a la derecha */
+  }
+
+  .info-grid {
+     // En móviles, Grid se adaptará a 1 columna automáticamente (minmax(250px, 1fr))
+     gap: 10px 0; /* Solo un pequeño espacio vertical */
+  }
+
+  // Ajustar la lista de productos para mejor visualización
+  .list-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .prod-info {
+    // Asegura que nombre y precio estén juntos arriba
+    margin-bottom: 0.5rem; 
+  }
+  
+  .item-actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* Mueve los botones a la derecha de la fila */
+  }
+}
+
