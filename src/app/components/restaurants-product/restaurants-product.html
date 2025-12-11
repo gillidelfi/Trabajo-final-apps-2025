@@ -1,67 +1,92 @@
-<div>
-    @if(idProduct()){
-      <h2>Editar producto</h2>
+<div class="form-container">
+ 
+  <header>
+    @if(isEditing){
+      <h2>✏️ Editar Producto</h2>
     } @else {
-      <h2>Nuevo producto</h2>
+      <h2>➕ Nuevo Producto</h2>
     }
-    <form (ngSubmit)="handleFormSubmission(newProductForm)" #newProductForm="ngForm" >
-        <div>
-          <label for="name">Nombre</label>  
-          <input id = "name" name ="name" type="text" required="true" #name="ngModel" minlength="2" maxlength="30" ngModel >
-          @if (name.dirty && name.invalid ) {
-               <p class="error">El nombre es obligatorio</p>}
-        </div>
-        <div>
-            <label for="description"></label>  
-            <input id= "description" name= "description" type="text" ngModel >
-          </div>
-          <div>
-            <label for="price">$$</label>  
-            <input id="price" name= "price"  type="text" required="true" minlength="3" maxlength="50" ngModel >
-          </div>
-          <div>
-            <label for="categoryId"></label>  
-            <input id="categoryId" name="categoryId" type="number" maxlength="40" ngModel >
-          </div>   
-          <div>
-            <label for="featured"></label>  
-            <input id="featured" name="featured" type="text" ngModel >
-          </div>  
-          <div>
-            <label for="labels"></label>  
-            <input id="labels" name="labels" type="text" minlength="5" ngModel >
-          </div>    
-          <div>
-            <label for="recommendedFor">Recomendado para</label>  
-            <input id="recommendedFor" name="recommendedFor" type="text" minlength="1" ngModel >
-          </div>       
-          <div>
-            <label for="discount">descuento</label>  
-            <input id="discount" name="discount" type="text"  ngModel >
-          </div>
-          <div>
-            <label for="hasHappyHour">happyhour</label>  
-            <input id="hasHappyHour" name="hasHappyHour" type="text"  ngModel >
-          </div>
-            <div>
-                <label for="isDestacado">destacado</label>  
-                <input id="isDestacado" name="isDestacado" type="text"  ngModel >
-            </div>
+  </header>
 
-  
-          @if (errorEnBack){
-            <p class="error">Error indeterminado, inetente nuevamente</p>
-          }    
-  
-          @if(idProduct()){ /** Revisar deshabilitacion de botones*/
 
-            <button [disabled]="newProductForm.invalid || isLoading">Editar</button> 
-          } @else {
-            <button [disabled]="newProductForm.invalid || isLoading">Crear</button>
+  <form (ngSubmit)="handleFormSubmission(newProductForm)" #newProductForm="ngForm">
+   
+    <div class="form-group">
+      <label for="name">Nombre del plato *</label>  
+      <input id="name" name="name" type="text" required minlength="2" maxlength="50" ngModel placeholder="Ej: Hamburguesa Doble">
+      @if (newProductForm.controls['name']?.dirty && newProductForm.controls['name']?.invalid) {
+        <p class="error-msg">El nombre es obligatorio y debe tener mínimo dos letras.</p>
+      }
+    </div>
+
+
+    <div class="form-group">
+      <label for="description">Descripción</label>  
+      <textarea id="description" name="description" ngModel rows="3" placeholder="Ingredientes, preparación..."></textarea>
+    </div>
+
+
+    <div class="row">
+      <div class="form-group">
+        <label for="price">Precio ($) *</label>  
+        <input id="price" name="price" type="number" required min="0" ngModel placeholder="0.00">
+      </div>
+
+
+      <div class="form-group">
+        <label for="categoryId">Categoría *</label>  
+        <select id="categoryId" name="categoryId" required ngModel>
+          <option value="" disabled selected>Selecciona una...</option>
+          @for (cat of categories; track cat.id) {
+            <option [value]="cat.id">{{ cat.name }}</option>
           }
-          @if(isLoading){
-            <app-spinner class="loader"></app-spinner>
-          }
-        
-    </form>
-  </div>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="form-group">
+        <label for="labels">Etiquetas (separadas por coma)</label>  
+        <input id="labels" name="labels" type="text" ngModel placeholder="Ej: Picante, Vegano, Sin TACC">
+      </div>
+     
+      <div class="form-group">
+        <label for="discount">Descuento (%)</label>  
+        <input id="discount" name="discount" type="number" min="0" max="100" ngModel placeholder="0">
+      </div>
+    </div>
+
+
+    <div class="checkbox-group">
+      <div class="checkbox-item">
+        <input id="hasHappyHour" name="hasHappyHour" type="checkbox" ngModel>
+        <label for="hasHappyHour">🍹 Aplica Happy Hour</label>
+      </div>
+
+
+      <div class="checkbox-item">
+        <input id="featured" name="featured" type="checkbox" ngModel>
+        <label for="featured">⭐ Producto Destacado </label>
+      </div>
+
+    </div>
+ 
+    @if (errorEnBack){
+      <p class="global-error">Ocurrió un error al guardar. Verifica tu conexión o intenta nuevamente.</p>
+    }    
+ 
+    <div class="actions">
+      <button type="submit" class="btn-save" [disabled]="newProductForm.invalid || isLoading">
+        @if(isLoading) {
+          <app-spinner></app-spinner> Guardando...
+        } @else {
+          {{ isEditing ? 'Guardar Cambios' : 'Crear Producto' }}
+        }
+      </button>
+     
+      <a routerLink="/configuracion" class="btn-cancel">Cancelar</a>
+    </div>
+     
+  </form>
+</div>

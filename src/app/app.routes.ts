@@ -5,6 +5,11 @@ import { RegisterPage } from './pages/register-page/register-page';
 import { Home } from './components/home/home';
 import { RestaurantsPage } from './pages/restaurants-page/restaurants-page';
 import { RestaurantsMenu } from './components/restaurants-menu/restaurants-menu';
+import { Configuracion } from './pages/configuracion/configuracion';
+import { onlyLoggedUserGuard } from './guards/only-logged-user-guard';
+import { RestaurantsProduct } from './components/restaurants-product/restaurants-product';
+import { CategoriasEdicion } from './components/categorias-edicion/categorias-edicion';
+
 export const routes: Routes = [
     {
         path:"login",
@@ -23,8 +28,23 @@ export const routes: Routes = [
     component:RestaurantsMenu,
    },
    {
+  path: 'configuracion',
+  component: Configuracion, 
+  canActivate: [onlyLoggedUserGuard] 
+},
+{
+    path: 'products/edit/:idProduct', //corregir 
+    component: RestaurantsProduct,
+    canActivate: [onlyLoggedUserGuard] 
+  },
+  {
+    path: 'categories/edit/:idCategory', //corregir 
+    component: CategoriasEdicion,
+    canActivate: [onlyLoggedUserGuard]
+  },
+   {
     path:"**",
     component:Home,
    },
+   
 ]
-

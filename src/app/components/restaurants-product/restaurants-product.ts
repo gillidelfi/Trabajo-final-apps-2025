@@ -1,79 +1,136 @@
 import { Component, inject, input, OnInit, viewChild } from '@angular/core';
-import { NewProduct, Product } from '../../Interfaces/Products';
-import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router'; 
+import { CommonModule } from '@angular/common';
 import { Spinner } from '../spinner/spinner';
+
+
 import { RestaurantService } from '../../services/restaurant-service';
+import { CategoriesService } from '../../services/categories-service';
+import { AuthService } from '../../services/auth-service';
+
+
+import { NewProduct, Product } from '../../Interfaces/Products';
+import { Category } from '../../Interfaces/Categories';
+
 
 @Component({
   selector: 'app-restaurants-product',
-  imports: [Spinner, FormsModule],
+  standalone: true,
+  imports: [Spinner, FormsModule, CommonModule, RouterLink], 
   templateUrl: './restaurants-product.html',
   styleUrl: './restaurants-product.scss',
 })
-export class RestaurantsProduct implements OnInit{
-  RestaurantService = inject(RestaurantService);
-  idProduct = input<number>();
-  productoOriginal: Product | undefined = undefined;
-  errorEnBack = false;
-  router= inject(Router);
-  form = viewChild<NgForm>('newContactForm');
+export class RestaurantsProduct implements OnInit {
+  private restaurantService = inject(RestaurantService);
+  private categoriesService = inject(CategoriesService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+
+  idProduct = input<string>();
+  form = viewChild<NgForm>('newProductForm');
+
+
+  categories: Category[] = [];
   isLoading = false;
-  
+  errorEnBack = false;
+  restaurantId: number | null = null;
+  isEditing = false;
+
+
   async ngOnInit() {
-    if(this.idProduct()){
-      this.productoOriginal = await this.RestaurantService.getProductById(this.idProduct()!); //crear get product by id en el restaurant-service
-      // Cambio los valores del formulario
-      this.form()?.setValue({
-        firstName: this.productoOriginal!.name,
-        lastName: this.productoOriginal!.description,
-        address: this.productoOriginal!.price,
-        email: this.productoOriginal!.categoryId,
-        image: this.productoOriginal!.featured,
-        number: this.productoOriginal!.labels,
-        recommendedFor: this.productoOriginal!.recommendedFor,
-        company: this.productoOriginal!.discount,
-        hasHappyHour: this.productoOriginal!.hasHappyHour,
-        id: this.productoOriginal!.id, 
-        isDestacado: this.productoOriginal!.isDestacado
-      })
-    }
-  }
-
-   /** Revisa si estamos editando o creando un contacto y ejecuta la función correspondiente del servicio de contactos */
-   async handleFormSubmission(form:NgForm){
-
-    this.errorEnBack = false;
-    const nuevoProducto: NewProduct ={
-      name: form.value.name,
-      description: form.value.description,
-      price: form.value.price,
-      categoryId: form.value.categoryId,
-      featured: form.value.featured,
-      labels: form.value.labels, 
-      recommendedFor: form.value.recommendedFor,
-      discount: form.value.discount,
-      hasHappyHour: form.value.hasHappyHour,
-      isDestacado: form.value.isDestacado,
-    }
-    console.log(nuevoProducto);
-    let res;
     this.isLoading = true;
-    if(this.idProduct()){
-      res = await this.RestaurantService.editProduct({...nuevoProducto, id: this.idProduct()!})
-    } else {
-      res = await this.RestaurantService.addProduct(nuevoProducto);
-    }
-    console.log(res);
-    this.isLoading = false;
-    if(!res) {
-      this.errorEnBack = true;
-      return
-    };
-    this.router.navigate(["/products", res.id]);     // crear ruta a la pagina del producto creado o editado
+    try {
+      this.restaurantId = this.authService.getUserId();
+      if (!this.restaurantId) {
+        this.router.navigate(['/login']);
+        return;
+      }
 
+
+      await this.categoriesService.getCategoriesByRestaurant(this.restaurantId);
+      this.categories = this.categoriesService.categories();
+
+
+      const id = this.idProduct();
+      if (id && id !== 'nuevo') {
+        this.isEditing = true;
+        await this.loadProductData(Number(id));
+      }
+
+
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.isLoading = false;
+    }
   }
 
+  async loadProductData(id: number) {
+    const product = await this.restaurantService.getProductById(id); 
+  
+    if (product) {
+      await Promise.resolve(); // espera al siguiente ciclo del event loop asegurando que el form este renderizado 
+        this.form()?.setValue({
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        categoryId: product.categoryId,
+        labels: product.labels ? product.labels.join(', ') : '',
+        discount: product.discount || 0,
+        featured: product.featured || false,
+        hasHappyHour: product.hasHappyHour || false,
+        isDestacado: product.isDestacado || false
+      });
+    }
+  }
+
+
+  async handleFormSubmission(form: NgForm) {
+    if (form.invalid || !this.restaurantId) return;
+    this.isLoading = true;
+    this.errorEnBack = false;
+
+    try {
+      const productData: NewProduct = {
+        name: form.value.name,
+        description: form.value.description,
+        price: Number(form.value.price),
+        categoryId: Number(form.value.categoryId),
+        restaurantId: this.restaurantId,
+        labels: form.value.labels ? form.value.labels.split(',').map((l: string) => l.trim()) : [],
+        recommendedFor: 1,   // Enviamos 1 por defecto por si el backend lo requiere, pero no lo pedimos
+        discount: Number(form.value.discount),
+        featured: !!form.value.featured,
+        hasHappyHour: !!form.value.hasHappyHour,
+        isDestacado: !!form.value.isDestacado,
+      };
+
+
+      let result;
+
+
+      if (this.isEditing) {
+        const id = Number(this.idProduct());
+        result = await this.restaurantService.editProduct({ ...productData, id: id });
+      } else {
+        result = await this.restaurantService.addProduct(productData);
+      }
+
+
+      if (result) {
+        this.router.navigate(['/configuracion']);
+      } else {
+        this.errorEnBack = true;
+      }
+
+
+    } catch (e) {
+      console.error(e);
+      this.errorEnBack = true;
+    } finally {
+      this.isLoading = false;
+    }
+  }
 }
-
-

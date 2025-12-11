@@ -2,6 +2,7 @@ import { inject, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginData } from '../Interfaces/Auth';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,28 +11,39 @@ export class AuthService implements OnInit{
   token : null|string = localStorage.getItem("token");
   revisionTokenInterval: number|undefined;
 
+
   ngOnInit(): void {
-    //si tengo sesion iniciada revisa que no este vencida 
+    //si tengo sesion iniciada revisa que no este vencida
     if(this.token){
       this.revisionTokenInterval = this.revisionToken()
     }
   }
-  
-  /**autentica al asuario en el back y nos devuelve el token */
-  async login(loginData: LoginData){
-    const res = await fetch("https://w370351.ferozo.com/api/Authentication/login",
-      { 
+
+
+async login(loginData: any): Promise<boolean> {
+    try {
+      const res = await fetch("https://w370351.ferozo.com/api/Authentication/login", {
         method: "POST",
-        headers: {'Content-Type': 'application/json'},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginData)
+      });
+
+      if (res.ok) {
+        const responseData = await res.json();
+        this.token = responseData.token; // asigna el token a la variable de la clase
+        if (this.token) {
+          localStorage.setItem("token", this.token);
+        }
+        return true;
+      } else {
+        return false;
       }
-    )
-    if(res.ok){
-      this.token = await res.text()
-      localStorage.setItem("token",this.token);
-      this.router.navigate(["/home"])
+    } catch (error) { // Si hubo un error de red o ejecución, se muestra en consola
+      console.error("Error en login:", error);
+      return false;
     }
   }
+
 
   logout(){
     this.token = null;
@@ -39,17 +51,19 @@ export class AuthService implements OnInit{
     this.router.navigate(["/login"]);
   }
 
-  parseJwt(token: string) {
+
+  parseJwt(token: string) { 
+
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-
-    return JSON.parse(jsonPayload);
+    return JSON.parse(jsonPayload); //convierte el token en un objeto JavaScript legible con los claims dentro.
   };
 
-  revisionToken(){
+
+  revisionToken(){ //revisa si el token esta vencido
     return setInterval(() => {
       if(this.token){
         const claims = this.parseJwt(this.token);
@@ -60,11 +74,14 @@ export class AuthService implements OnInit{
     }, 600)
   }
 
+
   getUserId() {
     if(this.token){
       const claims = this.parseJwt(this.token);
-      return claims.sub;
+      return claims.sub; //devuelve el id del usuario logueado
     }
-    return null;
+    return null; // Si no hay token, devuelve null
   }
 }
+
+

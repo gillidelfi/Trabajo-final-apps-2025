@@ -1,15 +1,17 @@
-
 import { inject, Injectable } from '@angular/core';
 import { AuthService } from './auth-service';
 import { NewProduct, Product } from '../Interfaces/Products';
+
 
 @Injectable({
   providedIn: 'root'
 })
 
+
 export class RestaurantService {
   aleatorio = Math.random();
   authService = inject(AuthService);
+
 
   Product: Product[] = [];
   async addProduct (NewProduct:NewProduct) {
@@ -23,38 +25,57 @@ export class RestaurantService {
         body: JSON.stringify(NewProduct)
         });
 
+
     if (!res.ok) return;
     const resProduct:Product = await res.json();
     this.Product.push(resProduct);
     return resProduct;
 
+
 }
-async getProductbyrestaurant(id:string | number) {
-  const res = await fetch('https://w370351.ferozo.com/api/restaurants/products' + id, {
-      headers:{
-          Authorization: "Bearer "+this.authService.token,
-      },
-  });
-  if (!res.ok) return;
-  const resProduct: RestaurantService = await res.json();
-  return resProduct;
+
+// --- OBTENER PRODUCTOS DEL RESTAURANTE ---
+  async getProductbyrestaurant(id: string | number): Promise<Product[]> {
+    try {
+      const res = await fetch(`https://w370351.ferozo.com/api/Users/${id}/products`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + this.authService.token
+        }
+      });
+
+
+      if (!res.ok) {
+        console.error("Error al traer productos:", res.status);
+        return [];
+      }
+     
+      const data = await res.json();
+      return data;  // Devuelve el array de productos
+
+
+    } catch (err) { // Si ocurre un error de red (por ejemplo, la API no responde), se captura acá para evitar que el programa falle
+      console.error("Error de red:", err);
+      return [];
+    }
   }
-  
 async getProductById(id: string | number) {
-  const res = await fetch('https://w370351.ferozo.com/api/products'+ id,  /**cambiar poniendo id de un producto creado */
+  const res = await fetch('https://w370351.ferozo.com/api/products'+ id,  
     {
       headers:{
         Authorization: "Bearer "+this.authService.token,
       },
     });
-  
+ 
   if (!res.ok) return;
   const resProduct: Product = await res.json();
   return resProduct;
 
+
 }
-async editProduct(productoEditado: Product) { 
-  const res = await fetch ("https://w370351.ferozo.com/api/products"+ productoEditado.id, /**cambiar poniendo id de un producti creado */
+async editProduct(productoEditado: Product) {
+  const res = await fetch ("https://w370351.ferozo.com/api/products"+ productoEditado.id, 
   {
     method: "PUT",
     headers: {
@@ -64,6 +85,7 @@ async editProduct(productoEditado: Product) {
     body: JSON.stringify(productoEditado)
     });
   if (!res.ok) return;
+
 
     /**edita la lista reemplazando solamente el que editamos  */
   this.Product = this.Product.map(product => {
@@ -76,7 +98,7 @@ async editProduct(productoEditado: Product) {
 }
  /** Borra un contacto */
  async deleteProduct(id:string | number) {
-  const res = await fetch('https://w370351.ferozo.com/api/products' + id,/**cambiar poniendo id de un producti creado */
+  const res = await fetch('https://w370351.ferozo.com/api/products' + id,
     {
       method: "DELETE",
       headers:{
@@ -87,8 +109,8 @@ async editProduct(productoEditado: Product) {
   this.Product = this.Product.filter(Product => Product.id !== id);
   return true;
 }
-async toggleDestacado(id: string | number) { 
-  const res = await fetch("https://w370351.ferozo.com/api/products" + id + "/destacado", /**cambiar poniendo id de un producto creado */
+async toggleDestacado(id: string | number) {
+  const res = await fetch("https://w370351.ferozo.com/api/products" + id + "/destacado", 
     {
       method: "POST",
       headers:{
@@ -105,8 +127,8 @@ return Product;
 });
 return true;
 }
-async toggleHappyHour(id: string | number, p0: { toggleHappyHour: boolean; }) { 
-  const res = await fetch("https://w370351.ferozo.com/api/products" + id + "/hayppyhour", /**cambiar poniendo id de un producto creado */
+async toggleHappyHour(id: string | number, p0: { toggleHappyHour: boolean; }) {
+  const res = await fetch("https://w370351.ferozo.com/api/products" + id + "/hayppyhour", 
     {
       method: "PUT",
       headers:{
@@ -123,8 +145,8 @@ return Product;
 });
 return true;
 }
-async toggleDiscount(id: string | number, p0: { discount: number; }) { 
-  const res = await fetch("https://w370351.ferozo.com/api/products" + id + "/discount", /**cambiar poniendo id de un producto creado */
+async toggleDiscount(id: string | number, p0: { discount: number; }) {
+  const res = await fetch("https://w370351.ferozo.com/api/products" + id + "/discount", 
     {
       method: "PUT",
       headers:{
@@ -132,15 +154,15 @@ async toggleDiscount(id: string | number, p0: { discount: number; }) {
       },
     });
   if (!res.ok) return;
-/**edita la lista reemplazando solamente el que editamos  */
-this.Product = this.Product.map(Product =>{
+
+  this.Product = this.Product.map(Product =>{
 if (Product.id === id) {
-  return {...Product, hasDiscount: !Product.discount}; /**cambiar poniendo id de un producto creado */
+  return {...Product, hasDiscount: !Product.discount}; 
 };
 return Product;
 });
 return true;
 }
-} 
+}
 
  
