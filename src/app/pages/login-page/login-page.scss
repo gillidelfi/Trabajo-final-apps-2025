@@ -12,7 +12,7 @@
     background-color: white;
     width: 100%;
     max-width: 400px;
-    padding: 2,5rem 2rem;
+    padding: 2.5rem 2rem;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(187, 62, 0, 0.1);
     text-align: center;
@@ -20,7 +20,7 @@ h1{
     color: #bb3e00;
     font-size: 2rem;
     font-weight: 700;
-    letter-spacing: -0,5px;
+    letter-spacing: -0.5px;
 }
 //inputs
 .username{
@@ -41,7 +41,7 @@ input{
     border: 2px solid transparent;
     background-color: rgba( #fff1d7, 0.5);
     border-radius: 8px;
-    transition: all 0,3 ease;
+    transition: all 0.3 ease;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
     &:focus{
         outline: none;
