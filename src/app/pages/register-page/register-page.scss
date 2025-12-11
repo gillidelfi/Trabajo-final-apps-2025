@@ -27,6 +27,7 @@
     margin-bottom: 2rem;
     font-size: clamp(1.75rem, 5vw, 2rem);
     font-weight: 800; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
   
@@ -40,6 +41,7 @@
       color: #7b6f19;
       font-weight: 600;
       margin-bottom: 0.5rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
     input {
@@ -47,6 +49,7 @@
       box-sizing: border-box;
       padding: 14px; 
       font-size: 1rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       border: 2px solid transparent;
       background-color: rgba(#fff1d7, 0.6); 
       border-radius: 8px;
@@ -67,6 +70,7 @@
     font-size: 0.85rem;
     margin-top: 6px;
     font-weight: 500;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
   // Botón Principal
@@ -80,6 +84,7 @@
     border-radius: 50px; 
     font-size: 1.1rem;
     font-weight: bold;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(#bb3e00, 0.3);
     transition: transform 0.2s, background-color 0.2s;
@@ -108,12 +113,14 @@
     text-align: center;
     margin-top: 2rem;
     font-size: 0.95rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: #666;
 
     a {
       color: #bb3e00;
       font-weight: bold;
       text-decoration: none;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       
       &:hover {
         color: #f7ad45;
