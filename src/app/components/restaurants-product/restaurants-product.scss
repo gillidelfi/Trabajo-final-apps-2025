@@ -1,0 +1,177 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background-color: #fff1d7; 
+  padding: 2rem 1rem;
+}
+.form-container {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 600px;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(187, 62, 0, 0.15);
+  // Parte de Editar / Nuevo Producto
+  header {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid rgba(247, 173, 69, 0.3); 
+    padding-bottom: 1rem;
+    text-align: center;
+
+    h2 {
+      color: #bb3e00; 
+      font-size: 1.8rem;
+      margin: 0;
+      font-weight: 800;
+    }
+  }
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      font-size: 0.95rem;
+      color: #7b6f19; 
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 2px solid transparent; 
+      background-color: rgba(255, 241, 215, 0.6); 
+      border-radius: 8px;
+      color: #2c2c2c; 
+      font-family: inherit;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+
+      &::placeholder {
+        color: #aaa;
+      }
+
+      &:focus {
+        outline: none;
+        background-color: #ffffff; 
+        border-color: #f7ad45; 
+        box-shadow: 0 0 0 4px rgba(247, 173, 69, 0.2); 
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+  }
+  .error-msg, .global-error {
+    color: #d32f2f; 
+    font-size: 0.85rem;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+
+  .global-error {
+    text-align: center;
+    margin-bottom: 1rem;
+    background-color: rgba(211, 47, 47, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .row {
+    display: flex;
+    gap: 1.5rem;
+    
+    .form-group {
+      flex: 1; 
+    }
+  }
+
+  //happy hour y destacados
+  .checkbox-group {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: rgba(255, 241, 215, 0.5); 
+    border-radius: 12px;
+    justify-content: center;
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+
+      input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        accent-color: #bb3e00;
+        cursor: pointer;
+      }
+
+      label {
+        margin: 0;
+        color: #2c2c2c;
+        cursor: pointer;
+        font-weight: 600;
+      }
+    }
+  }
+  .actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    .btn-save {
+      flex: 2;
+      background-color: #bb3e00; 
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      &:hover {
+        background-color: #a03500;
+        transform: translateY(-2px);
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+    .btn-cancel {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #7b6f19; 
+      font-weight: bold;
+      text-decoration: none;
+      border: 2px solid #7b6f19; 
+      border-radius: 50px;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: #7b6f19; 
+        color: #ffffff; 
+      }
+    }
+  }
+}
