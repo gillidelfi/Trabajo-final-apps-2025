@@ -30,7 +30,7 @@ export class CategoriesService {
   }
 
 
-  // --- AGREGAR CATEGORÍA (Aquí estaba el problema) ---
+  // --- AGREGAR CATEGORÍA---
   async addCategory(category: NewCategory) {
     // 1. Verificamos datos antes de enviar
     console.log("Intentando crear categoría:", category);

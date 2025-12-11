@@ -120,41 +120,7 @@ async deleteUser() {
     });
   }
 }
-  // openDeleteConfirm() { this.showDeleteConfirm = true; }
-  // closeDeleteConfirm() { this.showDeleteConfirm = false; }
-
-
-  // async deleteUser() {
-  //   if (!this.user) return;
-  //   this.isDeleting = true;
-  //   try {
-  //     const result = await this.userService.deleteUser(this.user.id);
-  //     if (result) {
-  //       this.authService.logout();
-  //     } else {
-  //       this.error = 'No se pudo eliminar la cuenta';
-  //       this.isDeleting = false;
-  //     }
-  //   } catch (err) {
-  //     this.error = 'Error al eliminar la cuenta';
-  //     this.isDeleting = false;
-  //   }
-  // }
-
-
-  // --- PRODUCTOS ---
-  // async deleteProduct(id: number) {
-  //   if(!confirm('¿Estás seguro de borrar este producto?')) return;
-
-
-  //   const success = await this.restaurantService.deleteProduct(id);
-  //   if(success) {
-  //     // Actualizamos la lista local para que desaparezca sin recargar
-  //     this.products = this.products.filter(p => p.id !== id);
-  //   } else {
-  //     alert('Error al eliminar producto');
-  //   }
-  // }
+  
 
 async deleteProduct(id: number) {
 
@@ -179,19 +145,6 @@ async deleteProduct(id: number) {
 }
   
 
-
-  // --- CATEGORÍAS ---
-  // async deleteCategory(id: number) {
-  //   if(!confirm('¿Borrar categoría? Esto podría afectar productos asociados.')) return;
-
-
-  //   const success = await this.categoriesService.deleteCategory(id);
-  //   if(success) {
-  //     this.categories = this.categories.filter(c => c.id !== id);
-  //   } else {
-  //     alert('Error al eliminar categoría');
-  //   }
-  // }
   async deleteCategory(id: number) {
 
     const confirm = await Swal.fire({

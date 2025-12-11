@@ -24,7 +24,7 @@ export const routes: Routes = [
     component:RestaurantsPage,
    },
    {
-    path:"restaurants-menu/:RestaurantName",
+    path:"restaurants-menu/:idRestaurant",
     component:RestaurantsMenu,
    },
    {
@@ -38,8 +38,13 @@ export const routes: Routes = [
     canActivate: [onlyLoggedUserGuard] 
   },
   {
-    path: 'categories/edit/:idCategory', //corregir 
+    path: 'categorias-edicion/:idCategory', //corregir 
     component: CategoriasEdicion,
+    canActivate: [onlyLoggedUserGuard]
+  },
+  {
+    path: 'profile/edit',
+    component: RegisterPage,
     canActivate: [onlyLoggedUserGuard]
   },
    {
