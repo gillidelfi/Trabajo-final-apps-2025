@@ -1,3 +1,4 @@
+
 :host{
     display:flex;
     justify-content: center;
@@ -58,7 +59,7 @@ p{
         cursor: pointer;
         transition: all 0.3s ease;
         &:hover{
-            background-color: darken($color: #bb3e00);
+            background-color: #852f04;
         }
     }
     .boton-invitado{
@@ -67,7 +68,7 @@ p{
         cursor: pointer;
         transition: all 0.3s ease;
         &:hover{
-            background-color: darken($color: #f7ad45);
+            background-color: #d1861d;
         }
     }
     .boton.registrarse{

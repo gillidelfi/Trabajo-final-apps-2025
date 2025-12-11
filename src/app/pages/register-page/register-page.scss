@@ -79,10 +79,10 @@
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(#bb3e00, 0.3);
-    transition: transform 0.2s,background 0.2s;
+    transition: transform 0.2s, background-color 0.2s;
 
     &:hover {
-      background-color: darken(#bb3e00, 5%);
+      background-color: #852f04;
       transform: translateY(-2px); // Se levanta un poco
     }
 
