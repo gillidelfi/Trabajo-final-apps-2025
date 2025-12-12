@@ -6,7 +6,7 @@ export interface User
         lastName: string,
         address: string,
         phoneNumber: string,
-        id: number
+        id: number,
       }
 export type NewUser = Omit<User, 'restaurantName' >;      
       

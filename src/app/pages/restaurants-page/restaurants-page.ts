@@ -24,7 +24,7 @@ export class RestaurantsPage implements OnInit{
   
   
 
-  viewMenu(restaurantName: string) {
+  viewMenu(id: number) {
     Swal.fire({
       title: " ¿Desea ver el menu?",
       showCancelButton: true,
@@ -33,7 +33,7 @@ export class RestaurantsPage implements OnInit{
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigate(['/restaurants-menu', restaurantName]);
+        this.router.navigate(['/restaurants-menu', id]);
       }
     });
 
