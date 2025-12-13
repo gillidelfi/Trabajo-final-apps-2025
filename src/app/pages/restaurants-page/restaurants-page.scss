@@ -1,109 +1,132 @@
+.page-background {
+  min-height: 100vh;
+  background-color: #fff1d7; 
+  display: flex;
+  justify-content: center;
+}
+.page-wrapper {
+  width: 100%;
+  max-width: 1240px;
+}
+  
 /* --- Enlace "Volver" superior --- */
 .footer-actions {
-  padding: 20px;
-  background-color: #fff1d7; /* Fondo Crema de la paleta */
+  padding: 1.5rem 1rem;
   
   .back-link {
     text-decoration: none;
-    color: #bb3e00; /* Rojo Teja para el link */
+    color: #bb3e00; 
     font-weight: 700;
     font-size: 1rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: system-ui, sans-serif;
     display: inline-flex;
     align-items: center;
-    transition: color 0.2s;
+    // transition: color 0.2s;
+    // margin: 0 auto;
+    // display: block;
+    // max-width: 1200px;
+    // padding: 0;
 
     &:hover {
-      color: #7b6f19; /* Verde Oliva al pasar el mouse */
-      text-decoration: none;
+      color: #7b6f19; 
     }
   }
 }
 
 /* --- Contenedor Principal --- */
 .contenedor-restaurant {
-  padding: 20px;
-  min-height: 100vh;
-  background-color: #fff1d7; /* Fondo Crema Pazzi Pizza */
-  font-family: 'Segoe UI', system-ui, sans-serif;
-
-  .row {
+  display: flex;
+  justify-content: center;
+}
+.row {
+    width: 100%;
+    padding: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 30px;
-    padding: 20px 0;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    justify-items: center;
   }
 
-  .col-md-4 {
+  .restaurant-item {
     width: 100%;
     display: flex;
+    justify-content: center;
   }
 
-  /* --- Tarjeta del Restaurante --- */
   .card {
-    background-color: #ffffff; /* Mantenemos blanco para contraste sobre el crema */
+    background-color: #ffffff; 
     border-radius: 16px;
-    border: 1px solid #f7ad45; /* Borde sutil Mostaza */
-    box-shadow: 0 4px 15px rgba(187, 62, 0, 0.1); /* Sombra con tinte rojizo */
+    border: 1px solid #f7ad45; 
+    box-shadow: 0 4px 15px rgba(187, 62, 0, 0.1); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
+    max-width: 360px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
 
     &:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(187, 62, 0, 0.15);
-      border-color: #bb3e00; /* Borde se pone Rojo al hover */
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(187, 62, 0, 0.15);
+      border-color: #bb3e00;
     }
 
     .card-body {
-      padding: 30px;
+      padding: 20px;
       text-align: center;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       height: 100%;
     }
 
     .card-title {
-      font-size: 1.5rem;
+      font-size: clamp(1.3rem, 5vw, 1.5rem);
       font-weight: 800;
-      color: #bb3e00; /* Título en Rojo Teja */
-      margin-bottom: 15px;
+      color: #bb3e00; 
+      margin-bottom: 10px;
     }
 
     .card-text {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #555555;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       line-height: 1.4;
 
       strong {
-        color: #7b6f19; /* Etiquetas ("Dirección:") en Verde Oliva */
+        color: #7b6f19; 
       }
     }
 
-    /* --- Botón "Ver Menú" --- */
     .btn-outline-primary {
       margin-top: auto;
       background-color: transparent;
-      color: #bb3e00; /* Texto Rojo Teja */
-      border: 2px solid #bb3e00; /* Borde Rojo Teja */
-      padding: 10px 25px;
+      color: #bb3e00; 
+      border: 2px solid #bb3e00; 
+      padding: 8px 20px;
       font-weight: 700;
       border-radius: 50px;
       cursor: pointer;
       transition: all 0.2s ease;
       text-transform: uppercase;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       letter-spacing: 0.5px;
 
       &:hover {
-        background-color: #bb3e00; /* Fondo Rojo Teja */
-        color: #fff1d7; /* Texto Crema */
-        box-shadow: 0 4px 10px rgba(187, 62, 0, 0.4);
+        background-color: #bb3e00; 
+        color: #fff1d7; 
+        box-shadow: 0 4px 8px rgba(187, 62, 0, 0.4);
       }
     }
+  }
+
+@media (max-width: 400px) {
+
+  .row {
+      // Asegura que siempre sea una sola columna en los teléfonos más estrechos
+      grid-template-columns: 1fr; 
+      justify-items: center;
+  }
+  .card {
+      max-width: 100%;
   }
 }
