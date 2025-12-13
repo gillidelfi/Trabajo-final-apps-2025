@@ -34,7 +34,6 @@ export class RestaurantsMenu implements OnInit {
   categories = signal<Category[]>([]);
   selectedCategoryId = signal<number | null>(null);
 
-  // LÓGICA COMPUTADA (La forma moderna de filtrar)
   // Se actualiza automáticamente si cambia 'products' o 'selectedCategoryId'
   filteredProducts = computed(() => {
     const selectedId = this.selectedCategoryId();

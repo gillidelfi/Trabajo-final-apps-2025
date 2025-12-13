@@ -33,6 +33,7 @@ export class RestaurantsProduct implements OnInit {
 
 
   categories: Category[] = [];
+  productData: any = {}; // Datos iniciales del formulario
   isLoading = false;
   errorEnBack = false;
   restaurantId: number | null = null;
@@ -71,8 +72,7 @@ export class RestaurantsProduct implements OnInit {
     const product = await this.restaurantService.getProductById(id); 
   
     if (product) {
-      await Promise.resolve(); // espera al siguiente ciclo del event loop asegurando que el form este renderizado 
-        this.form()?.setValue({
+      this.productData = {
         name: product.name,
         description: product.description,
         price: product.price,
@@ -82,8 +82,10 @@ export class RestaurantsProduct implements OnInit {
         featured: product.featured || false,
         hasHappyHour: product.hasHappyHour || false,
         isDestacado: product.isDestacado || false
-      });
-    }
+      };
+      await Promise.resolve(); // espera al siguiente ciclo del event loop asegurando que el form este renderizado 
+      this.form()?.setValue(this.productData);
+  }
   }
 
 

@@ -1,8 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Spinner } from '../../components/spinner/spinner';
 import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../../services/user-service';
+import { UserData } from '../../Interfaces/UserData';
+import { AuthService } from '../../services/auth-service';
 
 
 @Component({
@@ -14,71 +16,121 @@ import { UsersService } from '../../services/user-service';
 export class RegisterPage {
   errorRegister=false;
   usersService= inject(UsersService);
+  authService= inject(AuthService);
   isLoading = false;
   router = inject(Router);
+  isEditing = false;
 
 
-  // async register(form:NgForm){
-  //   this.errorRegister = false;
-  //   if(!form.value.restaurantName
-  //     || !form.value.password
-  //     || !form.value.password2
-  //     || !form.value.firstName
-  //     || !form.value.lastName
-  //     || !form.value.address
-  //     || !form.value.phoneNumber
-  //     || form.value.password !== form.value.password2){
-  //     this.errorRegister = true;
-  //     return
-  //   }
-  //   this.isLoading = true;
-  //   const res = await this.usersService.register(form.value);
-  //   if(res.ok){
-  //     this.router.navigate(["/login"])
-  //   }
-  //   this.isLoading = false;
-  //   this.errorRegister = true;
+  form = viewChild<NgForm>('registerForm');
+  userData: UserData = {
+    id: 0,
+    restaurantName: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    phoneNumber: '',
+    password: '',
+    password2: ''
+  };
+
+
+  async ngOnInit() {
+    // Detectamos si estamos en la ruta de edición
+    if (this.router.url.includes('/profile/edit')) {
+      this.isEditing = true;
+      await this.loadUserData();
+    }
+  }
+
+
+  async loadUserData() {
+    this.isLoading = true;
+    try {
+      const userId = this.authService.getUserId();
+      if (userId) {
+        const user = await this.usersService.getUsersbyId(userId);
+        if (user) {
+          // Rellenamos userData con lo que vino del back
+          this.userData = {
+            id: user.id, // Guardamos el ID para el update
+            restaurantName: user.restaurantName,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            address: user.address,
+            phoneNumber: user.phoneNumber,
+            password: '', // Contraseña vacía por seguridad
+            password2: ''
+          };
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+
   async register(form: NgForm) {
     this.errorRegister = false;
    
-    // Validaciones
-    if (!form.value.restaurantName || !form.value.password ||
-        !form.value.password2 || !form.value.firstName ||
-        !form.value.lastName || !form.value.address ||
-        !form.value.phoneNumber ||
-        form.value.password !== form.value.password2) {
-      this.errorRegister = true;
+    // Validación de contraseñas iguales
+    if (form.value.password !== form.value.password2) {
+      alert("Las contraseñas no coinciden");
       return;
     }
 
 
-    this.isLoading = true; // 🟢 Prende spinner
+    this.isLoading = true;
 
 
     try {
-      // Intentamos llamar al servicio
-      //  Asumimo que tu servicio devuelve 'true' si salió bien o el objeto Response
-      const res = await this.usersService.register(form.value);
+      let result;
 
 
-      // Verificamos si salió bien (Adaptado a si devuelves boolean o Response)
-      if (res) {
-        this.router.navigate(["/login"]);
+      if (this.isEditing) {
+        // --- MODO EDICIÓN ---
+        // Combinamos el ID original con los datos del formulario
+        const updateData = {
+          ...form.value,
+          id: this.userData.id,
+          // Si el backend pide userName, asegúrate de mandarlo
+          userName: form.value.firstName // o email, según tu back
+        };
+       
+        result = await this.usersService.updateUser(updateData);
+       
+        if (result) {
+          this.router.navigate(['/configuracion']); // Volver al panel
+        } else {
+          this.errorRegister = true;
+        }
+
+
       } else {
-        this.errorRegister = true;
+        // --- MODO REGISTRO ---
+        result = await this.usersService.register(form.value);
+       
+        if (result) {
+          this.router.navigate(["/login"]);
+        } else {
+          this.errorRegister = true;
+        }
       }
 
 
     } catch (error) {
-      // Si algo explota (ej: servidor caído, sin internet), cae aquí
-      console.error("Error en el registro:", error);
+      console.error("Error:", error);
       this.errorRegister = true;
     } finally {
-      //  ESTO ES LO QUE FALTABA
-      // Se ejecuta SIEMPRE, haya error o no via éxito.
       this.isLoading = false;
     }
   }
-  }
+}
+
+
+
+
 
 

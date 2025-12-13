@@ -16,7 +16,7 @@
 
     <section class="card info-user">
       <div class="header-row">
-        <h2>🏪 Mi Restaurante</h2>
+        <h2>{{ user.restaurantName }}</h2>
         <div class="user-actions">
            <button class="btn-icon" title="Editar datos" routerLink="/profile/edit">✏️</button>
            <button class="btn-icon danger" title="Eliminar cuenta" (click)="deleteUser()">🗑️</button>
@@ -25,10 +25,7 @@
 
 
       <div class="info-grid">
-        <div class="item">
-          <span class="label">Nombre:</span>
-          <span class="value">{{ user.restaurantName }}</span>
-        </div>
+
         <div class="item">
           <span class="label">Dueño:</span>
           <span class="value">{{ user.firstName }} {{ user.lastName }}</span>

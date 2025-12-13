@@ -57,4 +57,29 @@ authService = inject(AuthService);
         this.users = this.users.filter(user => user.id !== id);
         return true;
       }
+      async updateUser(user: any): Promise<boolean> {
+        try {
+          // ✅ CORRECCIÓN: Agregamos la 's' -> /api/Users/
+          const res = await fetch(`https://w370351.ferozo.com/api/Users/${user.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + this.authService.token
+            },
+            body: JSON.stringify(user)
+          });
+    
+    
+          if (!res.ok) {
+            console.error("Error al actualizar perfil:", res.status);
+            return false;
+          }
+    
+    
+          return true;
+        } catch (error) {
+          console.error("Error de red al actualizar usuario:", error);
+          return false;
+        }
+      }    
 }

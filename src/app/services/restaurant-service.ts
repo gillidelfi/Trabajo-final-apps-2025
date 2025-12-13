@@ -34,49 +34,51 @@ export class RestaurantService {
 
 }
 
-// --- OBTENER PRODUCTOS DEL RESTAURANTE ---
-  async getProductbyrestaurant(id: string | number): Promise<Product[]> {
-    try {
-      const res = await fetch(`https://w370351.ferozo.com/api/Users/${id}/products`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + this.authService.token
-        }
-      });
+async getProductbyrestaurant(restaurantId: number | string): Promise<Product[]> {
+  try {
+    const url = `https://w370351.ferozo.com/api/Users/${restaurantId}/products`;
 
+    const headers: any = {
+      "Content-Type": "application/json" //no es necesario el token 
+    };
 
-      if (!res.ok) {
-        console.error("Error al traer productos:", res.status);
-        return [];
-      }
-     
-      const data = await res.json();
-      return data;  // Devuelve el array de productos
+    if (this.authService.token) {
+      headers["Authorization"] = "Bearer " + this.authService.token; //agrega autorizacion si está logueado 
+    }
 
+    const res = await fetch(url, {
+      method: "GET",
+      headers: headers
+    });
 
-    } catch (err) { // Si ocurre un error de red (por ejemplo, la API no responde), se captura acá para evitar que el programa falle
-      console.error("Error de red:", err);
+    if (!res.ok) {
+      console.error(`Error ${res.status} obteniendo menú`);
       return [];
     }
+    const data = await res.json();
+    return data;
+
+  } catch (err) {
+    console.error("Error de conexión:", err);
+    return [];
   }
+}
+
 async getProductById(id: string | number) {
-  const res = await fetch('https://w370351.ferozo.com/api/products/'+ id,  
-    {
+  const res = await fetch(`https://w370351.ferozo.com/api/products/${id}`, {
       headers:{
         Authorization: "Bearer "+this.authService.token,
       },
     });
  
-  if (!res.ok) return;
+  if (!res.ok) return undefined;
   const resProduct: Product = await res.json();
   return resProduct;
-
-
 }
+
+
 async editProduct(productoEditado: Product) {
-  const res = await fetch ('https://w370351.ferozo.com/api/products/'+ productoEditado.id, 
-  {
+  const res = await fetch(`https://w370351.ferozo.com/api/products/${productoEditado.id}`,   {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -84,34 +86,25 @@ async editProduct(productoEditado: Product) {
     },
     body: JSON.stringify(productoEditado)
     });
-  if (!res.ok) return;
-
-
-    /**edita la lista reemplazando solamente el que editamos  */
-  this.Product = this.Product.map(product => {
-    if (product.id === productoEditado.id) {
-      return productoEditado;
-    };
-    return product;
-  });
+  if (!res.ok) return undefined;
   return productoEditado;
 }
- /** Borra un contacto */
+
+
  async deleteProduct(id:string | number) {
-  const res = await fetch('https://w370351.ferozo.com/api/products/' + id,
+  const res = await fetch(`https://w370351.ferozo.com/api/products/${id}`, 
     {
       method: "DELETE",
       headers:{
         Authorization: "Bearer "+this.authService.token,
       },
     });
-  if (!res.ok) return false;
-  this.Product = this.Product.filter(Product => Product.id !== id);
-  return true;
+  return res.ok;
 }
+
+
 async toggleDestacado(id: string | number) {
-  const res = await fetch('https://w370351.ferozo.com/api/products/' + id + '/destacado', 
-    {
+  const res = await fetch(`https://w370351.ferozo.com/api/products/${id}/destacado`,    {
       method: "POST",
       headers:{
         Authorization: "Bearer "+this.authService.token,
@@ -128,8 +121,7 @@ return Product;
 return true;
 }
 async toggleHappyHour(id: string | number, p0: { toggleHappyHour: boolean; }) {
-  const res = await fetch('https://w370351.ferozo.com/api/products/' + id + '/hayppyhour', 
-    {
+  const res = await fetch("https://w370351.ferozo.com/api/products" + id + "/hayppyhour",    {
       method: "PUT",
       headers:{
         Authorization: "Bearer "+this.authService.token,

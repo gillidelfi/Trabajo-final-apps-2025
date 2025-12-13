@@ -32,23 +32,16 @@ export class CategoriesService {
 
   // --- AGREGAR CATEGORÍA---
   async addCategory(category: NewCategory) {
-    // 1. Verificamos datos antes de enviar
-    console.log("Intentando crear categoría:", category);
-    console.log("Token actual:", this.authService.token);
-
-
     if (!this.authService.token) {
       console.error("❌ ERROR: No hay token de autenticación.");
       return undefined;
     }
-
 
     try {
       const res = await fetch(this.API_CATEGORIES_URL, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
-          // USAMOS EL SIGNO + PARA CONCATENAR (Es más seguro que las backticks)
           'Authorization': "Bearer " + this.authService.token
         },
         body: JSON.stringify(category)
@@ -57,12 +50,10 @@ export class CategoriesService {
 
       if (!res.ok) {
         console.error("❌ Error del servidor:", res.status, res.statusText);
-        // Intentamos leer el mensaje de error del backend si existe
         const errorText = await res.text();
         console.error("Detalle del error:", errorText);
         return undefined;
       }
-     
       const newCategory: Category = await res.json();
       console.log("✅ Categoría creada:", newCategory);
      
