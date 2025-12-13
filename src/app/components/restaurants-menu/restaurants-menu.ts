@@ -16,18 +16,14 @@ import { Category } from '../../Interfaces/Categories';
   styleUrl: './restaurants-menu.scss',
 })
 export class RestaurantsMenu implements OnInit {
-  // Servicios
   private router = inject(Router);
   private usersService = inject(UsersService);
   private restaurantService = inject(RestaurantService);
   private categoriesService = inject(CategoriesService);
 
-  
   // Usamos 'transform' para convertir el string de la URL en número automáticamente
-  // El alias 'idRestaurant' coincide con la ruta que acabamos de arreglar.
   idRestaurant = input.required<number, string>({ transform: numberAttribute });
 
-  // ESTADO (Signals)
   isLoading = signal<boolean>(true);
   user = signal<User | undefined>(undefined);
   products = signal<Product[]>([]);
@@ -64,7 +60,6 @@ async ngOnInit() {
       this.user.set(restaurantUser);
 
       // Cargar Productos
-      // Usamos 'id' que definimos arriba, no 'restaurantId'
       const prods = await this.restaurantService.getProductbyrestaurant(id);
       this.products.set(prods);
 

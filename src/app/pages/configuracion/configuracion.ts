@@ -77,7 +77,6 @@ async loadAllData() {
 async deleteUser() {
   if (!this.user) return;
 
-  // 1) Mostrar confirmación
   const confirm = await Swal.fire({
     title: '¿Estás seguro?',
     text: 'Esta acción eliminará tu cuenta permanentemente.',
