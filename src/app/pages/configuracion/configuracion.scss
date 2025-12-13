@@ -1,17 +1,9 @@
-$color-principal: #bb3e00; // Marrón/Naranja Oscuro
-$color-fondo: #fff1d7;    // Crema/Fondo Claro
-$color-secundario: #f7ad45; // Naranja Claro (Hover, Focus)
-$color-texto-label: #7b6f19; // Color de las etiquetas
-$color-rojo-peligro: #d32f2f; // Rojo para acciones definitorias
-$color-texto-suave: #666;    // Gris para mensajes
-$color-blanco: white;
-$color-texto-principal: #2c2c2c;
 
-// 1. Estilos Globales y Contenedor Principal
+// Estilos Globales y Contenedor Principal
 :host {
   display: block;
   min-height: 100vh;
-  background-color: $color-fondo; /* #fff1d7 */
+  background-color: #fff1d7;
   padding: 2rem 1rem;
 }
 
@@ -27,27 +19,28 @@ $color-texto-principal: #2c2c2c;
   text-align: center;
   padding: 3rem;
   // Usamos el estilo de tarjeta para estos mensajes
-  background-color: $color-blanco; 
+  background-color: white; 
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba($color-principal, 0.1);
+  box-shadow: 0 4px 15px rgba(#bb3e00, 0.1);
   margin-top: 2rem;
 }
 
 .loading, .error {
   font-size: 1.2rem;
-  color: $color-texto-principal;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #2c2c2c;
 }
 
 .error-state .error {
-  color: $color-rojo-peligro;
+  color: red;
   margin-bottom: 1rem;
 }
 
 // 3. Estilos de la Tarjeta Base (Card)
 .card {
-  background-color: $color-blanco;
+  background-color: white;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba($color-principal, 0.1);
+  box-shadow: 0 4px 15px rgba(#bb3e00, 0.1);
   padding: 1.5rem;
   margin-bottom: 2rem;
 }
@@ -57,11 +50,11 @@ $color-texto-principal: #2c2c2c;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba($color-texto-label, 0.1);
+  border-bottom: 1px solid rgba(#7b6f19, 0.1);
   padding-bottom: 0.75rem;
 
   h2, h3 {
-    color: $color-principal;
+    color: #bb3e00;
     font-weight: 700;
     margin: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -85,7 +78,7 @@ $color-texto-principal: #2c2c2c;
 
 .label {
   font-weight: 600;
-  color: $color-texto-label; /* #7b6f19 */
+  color: #7b6f19;
   font-size: 0.9rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin-bottom: 0.2rem;
@@ -94,7 +87,7 @@ $color-texto-principal: #2c2c2c;
 .value {
   font-size: 1.1rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: $color-texto-principal;
+  color: #2c2c2c;
   word-break: break-word; /* Evita desbordamiento de texto largo (direcciones) */
 }
 
@@ -112,18 +105,18 @@ $color-texto-principal: #2c2c2c;
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: rgba($color-secundario, 0.2);
+    background-color: rgba(#f7ad45, 0.2);
   }
 
   &.danger:hover {
-    background-color: rgba($color-rojo-peligro, 0.2);
+    background-color: rgba(red, 0.2);
   }
 }
 
 // Botones pequeños de lista
 .btn-small {
-  background-color: rgba($color-principal, 0.1);
-  color: $color-principal;
+  background-color: rgba(#bb3e00, 0.1);
+  color: #bb3e00;
   border: none;
   border-radius: 6px;
   padding: 6px 10px;
@@ -134,26 +127,26 @@ $color-texto-principal: #2c2c2c;
   transition: background-color 0.2s, color 0.2s;
   
   &:hover {
-    background-color: $color-principal;
-    color: $color-blanco;
+    background-color: #bb3e00;
+    color: white;
   }
 
   &.danger {
-    background-color: rgba($color-rojo-peligro, 0.1);
-    color: $color-rojo-peligro;
+    background-color: rgba(red, 0.1);
+    color: red;
     margin-left: 0.5rem;
     
     &:hover {
-      background-color: $color-rojo-peligro;
-      color: $color-blanco;
+      background-color: red;
+      color: white;
     }
   }
 }
 
 // Botón primario grande (+ Nueva Categoría/Producto)
 .btn-primary {
-  background-color: $color-principal; /* #bb3e00 */
-  color: $color-blanco;
+  background-color: #bb3e00;
+  color: white;
   border: none;
   border-radius: 50px;
   padding: 10px 18px;
@@ -162,7 +155,7 @@ $color-texto-principal: #2c2c2c;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   cursor: pointer;
   transition: background-color 0.2s, transform 0.2s;
-  box-shadow: 0 2px 8px rgba($color-principal, 0.3);
+  box-shadow: 0 2px 8px rgba(#bb3e00, 0.3);
 
   &:hover {
     background-color: #852f04;
@@ -181,7 +174,7 @@ $color-texto-principal: #2c2c2c;
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid rgba($color-texto-label, 0.1);
+  border-bottom: 1px solid rgba(#7b6f19, 0.1);
 
   &:last-child {
     border-bottom: none;
@@ -190,7 +183,7 @@ $color-texto-principal: #2c2c2c;
 
 .item-name {
   font-size: 1rem;
-  color: $color-texto-principal;
+  color: #2c2c2c;
   font-weight: 500;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -204,13 +197,13 @@ $color-texto-principal: #2c2c2c;
 
 .item-price {
   font-weight: 700;
-  color: $color-principal;
+  color: #bb3e00;
   font-size: 1.05rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .empty-msg {
-  color: $color-texto-suave; /* #666 */
+  color: #666; 
   text-align: center;
   padding: 2rem 0;
   font-style: italic;
@@ -221,16 +214,17 @@ $color-texto-principal: #2c2c2c;
 .footer-actions {
   text-align: center;
   padding: 1rem 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .back-link {
-  color: $color-texto-label;
+  color: #7b6f19;
   text-decoration: none;
   font-size: 0.95rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
   &:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
 

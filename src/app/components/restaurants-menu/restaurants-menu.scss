@@ -3,22 +3,25 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', system-ui, sans-serif;
-  background-color: #f8f9fa;
+  background-color: #fff1d7; /* Fondo Crema */
   min-height: 100vh;
-  color: #2c3e50; 
+  color: #333;
 
+  // --- Header del Restaurante ---
   .restaurant-header {
     background: #ffffff;
     padding: 2rem;
     border-radius: 12px;
     text-align: center;
     margin-bottom: 2rem;
+    border-bottom: 4px solid #f7ad45; /* Detalle Mostaza abajo */
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 
     h1 {
       margin: 0 0 10px 0;
-      color: #2c3e50;
+      color: #bb3e00; /* Rojo Teja */
       font-size: 2rem;
+      font-weight: 800;
     }
 
     .restaurant-info {
@@ -28,7 +31,8 @@
 
       p {
         margin: 0;
-        color: #666666;
+        color: #7b6f19; /* Verde Oliva para info de contacto */
+        font-weight: 600;
         font-size: 0.95rem;
       }
     }
@@ -38,9 +42,11 @@
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     padding-left: 10px;
-    border-left: 5px solid #ff5722; 
+    color: #bb3e00; /* Rojo Teja */
+    border-left: 5px solid #bb3e00; 
   }
 
+  // --- Navegación de Categorías ---
   .categories-nav {
     display: flex;
     gap: 12px;
@@ -53,37 +59,36 @@
       height: 6px;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: #dddddd;
+      background-color: #f7ad45; /* Scrollbar Mostaza */
       border-radius: 10px;
     }
 
     button {
       background: #ffffff;
-      border: 1px solid #e0e0e0;
+      border: 1px solid #f7ad45; /* Borde Mostaza suave */
       padding: 8px 20px;
       border-radius: 50px;
       white-space: nowrap;
       cursor: pointer;
-      font-weight: 500;
-      color: #2c3e50;
+      font-weight: 600;
+      color: #7b6f19; /* Texto Oliva */
       transition: all 0.2s ease;
 
       &:hover {
-        
-        background-color: #ffebe5; 
-        border-color: #ffccbc;
+        background-color: #fff1d7; /* Fondo Crema al hover */
+        color: #bb3e00;
       }
 
       &.active {
-        background-color: #ff5722;
-        color: #ffffff;
-        border-color: #ff5722;
-        box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+        background-color: #bb3e00; /* Activo: Rojo Teja */
+        color: #fff1d7; /* Texto Crema */
+        border-color: #bb3e00;
+        box-shadow: 0 4px 10px rgba(187, 62, 0, 0.3);
       }
     }
   }
 
-  // Lista de Productos
+  // --- Grid de Productos ---
   .products-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -94,13 +99,14 @@
       grid-column: 1 / -1;
       text-align: center;
       padding: 40px;
-      background: #eeeeee;
+      background: rgba(255, 255, 255, 0.6);
       border-radius: 12px;
-      color: #666666;
+      color: #7b6f19;
+      font-weight: bold;
     }
   }
 
-  // item de producto
+  // --- Tarjeta de Producto ---
   .product-item {
     background: #ffffff;
     border-radius: 12px;
@@ -113,11 +119,11 @@
 
     &:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 16px rgba(187, 62, 0, 0.15); /* Sombra rojiza */
     }
 
     &.featured-border {
-      border: 2px solid #ffc107; 
+      border: 2px solid #f7ad45; /* Borde Mostaza para destacados */
     }
 
     .card-content {
@@ -126,6 +132,7 @@
       flex-direction: column;
       flex: 1;
 
+      // Badges
       .badges {
         display: flex;
         flex-wrap: wrap;
@@ -138,9 +145,19 @@
           border-radius: 4px;
           font-weight: bold;
           
-          &.star { background-color: #fff3cd; color: #856404; }
-          &.fire { background-color: #f8d7da; color: #721c24; }
-          &.hh   { background-color: #d1ecf1; color: #0c5460; }
+          /* Estilos específicos de la paleta */
+          &.star { 
+            background-color: #f7ad45; /* Mostaza */
+            color: #ffffff; 
+          }
+          &.fire { 
+            background-color: #bb3e00; /* Rojo */
+            color: #ffffff; 
+          }
+          &.hh   { 
+            background-color: #7b6f19; /* Oliva */
+            color: #ffffff; 
+          }
         }
       }
 
@@ -148,11 +165,11 @@
         margin: 0 0 10px 0;
         font-size: 1.25rem;
         font-weight: 700;
-        color: #2c3e50;
+        color: #333;
       }
 
       .description {
-        color: #666666;
+        color: #666;
         font-size: 0.95rem;
         line-height: 1.5;
         margin-bottom: 1rem;
@@ -160,12 +177,13 @@
       }
 
       .recommendation {
-        background: #f0f4f8;
+        background: #fff1d7; /* Fondo Crema */
         padding: 8px;
         border-radius: 6px;
         font-size: 0.85rem;
-        color: #555555;
+        color: #7b6f19; /* Texto Oliva */
         margin-bottom: 15px;
+        border: 1px solid #f7ad45; /* Borde fino Mostaza */
       }
 
       // Precios
@@ -175,22 +193,22 @@
         gap: 10px;
         margin-top: auto;
         padding-top: 15px;
-        border-top: 1px solid #f0f0f0;
+        border-top: 1px dashed #f7ad45; /* Línea punteada Mostaza */
 
         .old-price {
           text-decoration: line-through;
-          color: #999999;
+          color: #999;
           font-size: 0.9rem;
         }
 
         .regular-price, .final-price {
           font-weight: 800;
           font-size: 1.2rem;
-          color: #2c3e50;
+          color: #bb3e00; /* Precio en Rojo */
         }
 
         .promo-text {
-          background-color: #28a745; 
+          background-color: #7b6f19; /* Oliva */
           color: #ffffff;
           font-size: 0.75rem;
           font-weight: bold;
@@ -202,7 +220,7 @@
     }
   }
 
-
+  // --- Botón Volver ---
   .actions {
     display: flex;
     justify-content: center;
@@ -210,8 +228,8 @@
 
     .btn-back {
       background-color: #ffffff;
-      color: #2c3e50;
-      border: 2px solid #2c3e50;
+      color: #bb3e00;
+      border: 2px solid #bb3e00;
       padding: 10px 25px;
       border-radius: 25px;
       font-weight: 600;
@@ -219,13 +237,13 @@
       transition: all 0.2s;
 
       &:hover {
-        background-color: #2c3e50;
-        color: #ffffff;
+        background-color: #bb3e00;
+        color: #fff1d7;
       }
     }
   }
 
-
+  // --- Loading y Error ---
   .loading-state, .error-state {
     display: flex;
     flex-direction: column;
@@ -235,16 +253,17 @@
     text-align: center;
     
     p {
-      color: #777777;
+      color: #7b6f19;
       margin-top: 15px;
+      font-weight: 500;
     }
   }
 
   .spiner {
     width: 40px;
     height: 40px;
-    border: 4px solid #e0e0e0;
-    border-top: 4px solid #ff5722;
+    border: 4px solid #fff1d7; /* Borde crema */
+    border-top: 4px solid #bb3e00; /* Spinner Rojo */
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
