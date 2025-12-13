@@ -20,7 +20,6 @@ authService = inject(AuthService);
     }
     users: User[] = []
     
-      /** Obtiene los restaurantes del backend */
       async getusers() {
         const res = await fetch("https://w370351.ferozo.com/api/users",
           {
@@ -59,7 +58,6 @@ authService = inject(AuthService);
       }
       async updateUser(user: any): Promise<boolean> {
         try {
-          // ✅ CORRECCIÓN: Agregamos la 's' -> /api/Users/
           const res = await fetch(`https://w370351.ferozo.com/api/Users/${user.id}`, {
             method: "PUT",
             headers: {

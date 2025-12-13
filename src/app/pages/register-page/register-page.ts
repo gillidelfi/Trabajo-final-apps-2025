@@ -36,7 +36,6 @@ export class RegisterPage {
 
 
   async ngOnInit() {
-    // Detectamos si estamos en la ruta de edición
     if (this.router.url.includes('/profile/edit')) {
       this.isEditing = true;
       await this.loadUserData();
@@ -51,15 +50,14 @@ export class RegisterPage {
       if (userId) {
         const user = await this.usersService.getUsersbyId(userId);
         if (user) {
-          // Rellenamos userData con lo que vino del back
           this.userData = {
-            id: user.id, // Guardamos el ID para el update
+            id: user.id, 
             restaurantName: user.restaurantName,
             firstName: user.firstName,
             lastName: user.lastName,
             address: user.address,
             phoneNumber: user.phoneNumber,
-            password: '', // Contraseña vacía por seguridad
+            password: '',
             password2: ''
           };
         }
@@ -75,41 +73,34 @@ export class RegisterPage {
   async register(form: NgForm) {
     this.errorRegister = false;
    
-    // Validación de contraseñas iguales
     if (form.value.password !== form.value.password2) {
       alert("Las contraseñas no coinciden");
       return;
     }
 
-
     this.isLoading = true;
-
 
     try {
       let result;
 
-
       if (this.isEditing) {
-        // --- MODO EDICIÓN ---
         // Combinamos el ID original con los datos del formulario
         const updateData = {
           ...form.value,
           id: this.userData.id,
-          // Si el backend pide userName, asegúrate de mandarlo
-          userName: form.value.firstName // o email, según tu back
+          userName: form.value.firstName 
         };
        
         result = await this.usersService.updateUser(updateData);
        
         if (result) {
-          this.router.navigate(['/configuracion']); // Volver al panel
+          this.router.navigate(['/configuracion']); 
         } else {
           this.errorRegister = true;
         }
 
 
       } else {
-        // --- MODO REGISTRO ---
         result = await this.usersService.register(form.value);
        
         if (result) {
@@ -118,7 +109,6 @@ export class RegisterPage {
           this.errorRegister = true;
         }
       }
-
 
     } catch (error) {
       console.error("Error:", error);

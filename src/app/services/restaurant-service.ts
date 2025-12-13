@@ -120,7 +120,7 @@ return Product;
 });
 return true;
 }
-async toggleHappyHour(id: string | number, p0: { toggleHappyHour: boolean; }) {
+async toggleHappyHour(id: string | number) {
   const res = await fetch("https://w370351.ferozo.com/api/products" + id + "/hayppyhour",    {
       method: "PUT",
       headers:{
@@ -137,7 +137,7 @@ return Product;
 });
 return true;
 }
-async toggleDiscount(id: string | number, p0: { discount: number; }) {
+async toggleDiscount(id: string | number) {
   const res = await fetch('https://w370351.ferozo.com/api/products/' + id + '/discount', 
     {
       method: "PUT",
