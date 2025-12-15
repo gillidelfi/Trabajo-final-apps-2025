@@ -144,10 +144,10 @@
   .actions .btn-save, 
   .actions .btn-cancel {
       width: 100%;
-      flex: none; /* Desactivar flex-grow para usar width: 100% */
+      flex: none; // Desactiva el flex-grow para usar width: 100% 
   }
 
   .form-container {
-      padding: 1.5rem 1rem; /* Reducir aún más el padding en el borde */
+      padding: 1.5rem 1rem; //Reducir el padding en el borde
   }
 }

@@ -52,7 +52,7 @@ input{
         border-color: #f7ad45;
         box-shadow: 0 0 0 4px rgba(#f7ad45, 0.2);
     }
-    //quita el  azul y le pone  blanco
+    //quita el  amarillo y le pone  blanco
     &:-webkit-autofill {
         -webkit-box-shadow: 0 0 0 30px white inset !important;
      }
@@ -130,7 +130,7 @@ a{
 a:hover{
         border-bottom-color: #7b6f19;
     }
-// Media Query para ajuste fino en pantallas muy pequeñas
+// Media Query para ajuste fino en pantallas muy pequeñas. Para que sea Responsive:
 @media (max-width: 400px) {
     .container-login {
         padding: 2rem 1.5rem;

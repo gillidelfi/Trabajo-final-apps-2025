@@ -175,6 +175,7 @@
     }
   }
 }
+// Media Query: pantalla  menor a 450px. Para que sea Responsive:
 @media (max-width: 450px) {
   // Para que los botones se vean mejor cuando se apilan
   .actions {
@@ -185,10 +186,10 @@
   .actions .btn-save, 
   .actions .btn-cancel {
       width: 100%;
-      flex: none; /* Desactivar flex-grow para usar width: 100% */
+      flex: none; // Quitar el flex para que no interfiera con el width
   }
 
   .form-container {
-      padding: 1.5rem 1rem; /* Reducir aún más el padding en el borde */
+      padding: 1.5rem 1rem; // Reducir padding para pantallas pequeñas
   }
 }

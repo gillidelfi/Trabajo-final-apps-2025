@@ -33,12 +33,12 @@ export const routes: Routes = [
   canActivate: [onlyLoggedUserGuard] 
 },
 {
-    path: 'products/edit/:idProduct', //corregir 
+    path: 'products/edit/:idProduct', 
     component: RestaurantsProduct,
     canActivate: [onlyLoggedUserGuard] 
   },
   {
-    path: 'categorias-edicion/:idCategory', //corregir 
+    path: 'categorias-edicion/:idCategory', 
     component: CategoriasEdicion,
     canActivate: [onlyLoggedUserGuard]
   },

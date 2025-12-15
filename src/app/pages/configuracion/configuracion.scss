@@ -10,11 +10,11 @@
 .container-configuracion {
   // Contenedor que centra el contenido y limita el ancho
   width: 100%;
-  max-width: 900px; /* Ancho máximo ideal para una página de configuración */
+  max-width: 900px; 
   margin: 0 auto;
 }
 
-// 2. Estados (Cargando y Error)
+// Estados de Cargando y Error 
 .loading-state, .error-state {
   text-align: center;
   padding: 3rem;
@@ -35,8 +35,7 @@
   color: red;
   margin-bottom: 1rem;
 }
-
-// 3. Estilos de la Tarjeta Base (Card)
+//estilo de la tarjeta principal
 .card {
   background-color: white;
   border-radius: 12px;
@@ -60,15 +59,14 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 }
-
-// 4. Sección de Información del Restaurante (.info-user)
+// Sección de Información del Restaurante 
 
 .info-grid {
   // Usamos CSS Grid para la rejilla de información
   display: grid;
-  // 2 columnas que ocupan igual espacio. En móvil, se adaptará a 1 columna.
+  // 2 columnas que ocupan igual espacio. En un celular se muestra con una columna.
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-  gap: 15px 30px; /* Espacio vertical y horizontal */
+  gap: 15px 30px; //espacio vertical y horizontal
 }
 
 .item {
@@ -88,12 +86,12 @@
   font-size: 1.1rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: #2c2c2c;
-  word-break: break-word; /* Evita desbordamiento de texto largo (direcciones) */
+  word-break: break-word; //evita que los textos largos se salgan del contenedor
 }
 
-// 5. Botones de Acción (Íconos y Pequeños)
+// Botones de Acción de iconos y pequeños
 
-// Botones de ícono (Editar/Eliminar en la cabecera)
+// Botones de ícono para Editar/Eliminar en la cabecera
 .btn-icon {
   background: none;
   border: none;
@@ -143,7 +141,7 @@
   }
 }
 
-// Botón primario grande (+ Nueva Categoría/Producto)
+// Botón primario grande + Nueva Categoría/Producto
 .btn-primary {
   background-color: #bb3e00;
   color: white;
@@ -163,7 +161,7 @@
   }
 }
 
-// 6. Listas (Categorías y Productos)
+// Listas de Categorías y Productos)
 .list-container {
   display: flex;
   flex-direction: column;
@@ -191,7 +189,7 @@
 .prod-info {
   display: flex;
   align-items: center;
-  flex-grow: 1; /* Ocupa el espacio disponible */
+  flex-grow: 1; //Ocupa todo el espacio disponible
   gap: 15px; 
   flex-wrap: wrap;;
 }
@@ -211,7 +209,7 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-// 7. Pie de Página y Enlace
+// Footer y Enlace
 .footer-actions {
   text-align: center;
   padding: 1rem 0;
@@ -229,11 +227,11 @@
   }
 }
 
-// 8. Media Queries (Ajustes finos para Móviles)
+// Media Queries- Responsive
 
 @media (max-width: 600px) {
   .card {
-    padding: 1rem; /* Reducir padding de la tarjeta en móviles */
+    padding: 1rem; //Reduce el padding en los celulares
   }
   
   // Reducir el espacio en el encabezado
@@ -250,12 +248,12 @@
   .user-actions {
     width: 100%;
     display: flex;
-    justify-content: flex-end; /* Mueve los íconos a la derecha */
+    justify-content: flex-end; //mueve los iconos a la derecha
   }
 
   .info-grid {
-     // En móviles, Grid se adaptará a 1 columna automáticamente (minmax(250px, 1fr))
-     gap: 10px 0; /* Solo un pequeño espacio vertical */
+     // En los celulares el Grid se adaptará a una columna automáticamente
+     gap: 10px 0; //reduce espacio entre filas
   }
 
   // Ajustar la lista de productos para mejor visualización
@@ -272,7 +270,7 @@
   .item-actions {
     width: 100%;
     display: flex;
-    justify-content: flex-end; /* Mueve los botones a la derecha de la fila */
+    justify-content: flex-end; 
   }
 }
 
