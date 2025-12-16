@@ -47,7 +47,7 @@ async login(loginData: any): Promise<boolean> {
 
   logout(){
     this.token = null;
-    localStorage.removeItem("token");/** guarda variables en el navegador para que no se borren al cambiar de pagina o dia */
+    localStorage.removeItem("token");/** Elimina el token del almacenamiento local */
     this.router.navigate(["/login"]);
   }
 
@@ -63,7 +63,7 @@ async login(loginData: any): Promise<boolean> {
   };
 
 
-  revisionToken(){ //revisa si el token esta vencido
+  revisionToken(){ 
     return setInterval(() => {
       if(this.token){
         const claims = this.parseJwt(this.token);

@@ -83,12 +83,10 @@ button{
      box-shadow: none;
     }
 }
-//spinner
 app-spinner{
     display: block;
     margin: 1rem auto;
 }
-//error
 .error{
     color:#d32f2f;
     font-size: 0.85rem;
@@ -130,8 +128,8 @@ a{
 a:hover{
         border-bottom-color: #7b6f19;
     }
-// Media Query para ajuste fino en pantallas muy pequeñas. Para que sea Responsive:
-@media (max-width: 400px) {
+
+    @media (max-width: 400px) {
     .container-login {
         padding: 2rem 1.5rem;
     }

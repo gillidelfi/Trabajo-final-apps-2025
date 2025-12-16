@@ -1,6 +1,6 @@
 import { Component, inject, input, OnInit, signal, computed, numberAttribute } from '@angular/core';
 import { Router } from "@angular/router";
-import { CommonModule } from '@angular/common'; // Importante para pipes como currency
+import { CommonModule } from '@angular/common'; 
 import { RestaurantService } from '../../services/restaurant-service';
 import { UsersService } from '../../services/user-service';
 import { CategoriesService } from '../../services/categories-service';
@@ -46,31 +46,26 @@ async ngOnInit() {
   const id = this.idRestaurant(); 
 
   if (id) {
-    this.isLoading.set(true); // Activa el spinner
+    this.isLoading.set(true); 
 
     try {
-      // Cargar Datos del Restaurante
       // Primero buscamos si ya lo tenemos en memoria
       let restaurantUser = this.usersService.users.find(r => r.id === id);
       
-      // Si no está en memoria, lo pedimos al backend
       if (!restaurantUser) {
         restaurantUser = await this.usersService.getUsersbyId(id);
       }
       this.user.set(restaurantUser);
 
-      // Cargar Productos
       const prods = await this.restaurantService.getProductbyrestaurant(id);
       this.products.set(prods);
 
-      // Cargar Categorías 
       await this.categoriesService.getCategoriesByRestaurant(id);
       this.categories.set(this.categoriesService.categories());
 
     } catch (error) {
       console.error("Falló la carga del menú:", error);
     } finally {
-      // Apagar Spinner
       this.isLoading.set(false);
     }
   }

@@ -23,7 +23,6 @@ export class CategoriasEdicion implements OnInit {
   private router = inject(Router);
 
 
-  // Recibe 'nuevo' o el ID numérico como string desde la URL
   idCategory = input<string>();
  
   form = viewChild<NgForm>("newCategoryForm");
@@ -44,12 +43,12 @@ export class CategoriasEdicion implements OnInit {
       }
       await this.categoryService.getCategoriesByRestaurant(userId);
       const allCategories = this.categoryService.categories();
-      const idParam = this.idCategory(); //Verifica si está editando o creando una nueva
+      const idParam = this.idCategory(); 
 
      
       if (idParam && idParam !== 'nuevo') {
         this.isEditing = true;
-        this.categoryOriginal = allCategories.find(c => c.id === Number(idParam)); //busca la categoría a editar
+        this.categoryOriginal = allCategories.find(c => c.id === Number(idParam)); 
         if (this.categoryOriginal) {
           await Promise.resolve();       //asegura que el form este renderizado antes de fijar los valores       
           this.form()?.setValue({
@@ -76,7 +75,6 @@ export class CategoriasEdicion implements OnInit {
       if (this.isEditing) {
         // ---EDICIÓN ---
         const updateData = { name: form.value.name };
-        // Asumiendo que updateCategory devuelve true/false o el objeto
         res = await this.categoryService.updateCategory(Number(this.idCategory()), updateData);
       } else {
         // --- CREACIÓN ---

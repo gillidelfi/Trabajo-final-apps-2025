@@ -83,7 +83,7 @@ export class RestaurantsProduct implements OnInit {
         hasHappyHour: product.hasHappyHour || false,
         isDestacado: product.isDestacado || false
       };
-      await Promise.resolve(); // espera al siguiente ciclo del event loop asegurando que el form este renderizado 
+      await Promise.resolve(); // asegura que el form este renderizado 
       this.form()?.setValue(this.productData);
   }
   }

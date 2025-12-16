@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router'; // Importar Router
+import { Router, RouterModule } from '@angular/router'; 
 import { AuthService } from '../../services/auth-service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Spinner } from '../../components/spinner/spinner';
@@ -21,7 +21,6 @@ export class LoginPage {
   async login(form: NgForm) {
     this.errorLogin = false;
    
-    // Validaciones básicas
     if (!form.value.restaurantName || !form.value.password) {
       this.errorLogin = true;
       return;

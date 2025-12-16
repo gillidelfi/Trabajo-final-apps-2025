@@ -127,19 +127,4 @@ export class CategoriesService {
   }
 }
 
-       
-   
-
-
-
-
-       
-   
-
-
-
-
-
-
-
-
+ 

@@ -175,9 +175,7 @@
     }
   }
 }
-// Media Query: pantalla  menor a 450px. Para que sea Responsive:
 @media (max-width: 450px) {
-  // Para que los botones se vean mejor cuando se apilan
   .actions {
       flex-direction: column;
       gap: 0.75rem;
@@ -190,6 +188,6 @@
   }
 
   .form-container {
-      padding: 1.5rem 1rem; // Reducir padding para pantallas pequeñas
+      padding: 1.5rem 1rem; 
   }
 }

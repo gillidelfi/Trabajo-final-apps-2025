@@ -9,7 +9,6 @@
   max-width: 1240px;
 }
   
-//volver a todos los restaurantes
 .footer-actions {
   padding: 1.5rem 1rem;
   
@@ -46,7 +45,6 @@
     display: flex;
     justify-content: center;
   }
-//esto hace ese efecto de que la tarjeta "flote"
   .card {
     background-color: #ffffff; 
     border-radius: 16px;
@@ -114,11 +112,10 @@
       }
     }
   }
-//Para que sea Responsive:
 @media (max-width: 400px) {
 
   .row {
-      // Asegura que siempre sea una sola columna en los teléfonos más estrechos
+      // Asegura que siempre sea una sola columna en los teléfonos 
       grid-template-columns: 1fr; 
       justify-items: center;
   }
