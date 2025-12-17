@@ -77,7 +77,6 @@ export class RestaurantsProduct implements OnInit {
         description: product.description,
         price: product.price,
         categoryId: product.categoryId,
-        labels: product.labels ? product.labels.join(', ') : '',
         discount: product.discount || 0,
         featured: product.featured || false,
         hasHappyHour: product.hasHappyHour || false,
